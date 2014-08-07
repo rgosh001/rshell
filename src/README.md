@@ -31,4 +31,5 @@ Bugs:
 		and/or segmetation fault.
 			-with newly updated respository, likeliness of not occuring has increased to
 			a knowledge of 100%;
-	5)	
+	5)	Depending on commands inputed from the user, they will not be supported due to
+		the location of their directory on their local machine
