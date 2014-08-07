@@ -1,3 +1,4 @@
+#flags for compling from hw specs
 CFLAS = -Wall -Werror -ansi -pedantic
 
 all: rshell
