@@ -62,7 +62,7 @@ int main()
 
 		if (i == 0)
 		{
-			string str1 = "~/bin/";
+			string str1 = "~/usr/bin/";
 			str2 = str1.append(str2);
 		}
 		
