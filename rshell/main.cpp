@@ -22,7 +22,6 @@ int main()
 	cout << getlogin() << "@" << hostname << "$ ";
 
 	getline(cin, usrinput);
-	string commandName, argument1, argument2;
 	
 	//function finds where the '#' index is at
 	int poundIndex = -1;
@@ -66,16 +65,15 @@ int main()
 
 		if (i == 0)
 		{
-			string str1 = "/usr/bin/";
+			string str1 = "/bin/";
 			str2 = str1.append(str2);
-			cout << str2<< endl;
 		}
 		
 		cp[i] = new char[str2.length() + 1];
 		strcpy(cp[i], str2.c_str());
-		cout << i << " " << cp[i] << endl;
 	}
-
+	cp[size] = new char[8];
+	cp[size] = NULL;
 	//checks for array values
 	/*for (int i = 0; i < size; ++i)
 	{
@@ -90,16 +88,33 @@ int main()
 		if (execv(cp[0], cp) == -1)
 		{
 			perror("EXECLV FAILED: ");
+
+			for (int i = 0; i < size; ++i)
+			{
+				delete[] cp[i];
+			}
+			delete [] cp;
+
 			exit(0);
 		}
 		else
 		{
 			execv(cp[0], cp);
+			for (int i = 0; i < size; ++i)
+			{
+				delete[] cp[i];
+			}
+			delete [] cp;
 		}
 	}
 	else
 	{
 		wait(&status);
+		for (int i = 0; i < size; ++i)
+		{
+			delete[] cp[i];
+		}
+		delete [] cp;
 		exit(0);
 	}
 	return 0;
