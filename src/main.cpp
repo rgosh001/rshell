@@ -9,7 +9,7 @@ using namespace std;
 int main()
 {
 	int child_pid;  
-	//int parent_pid = getppid();
+	int parent_pid = getppid();
 	int status = 0;
 	istringstream iss;
 	string usrinput;
@@ -22,7 +22,6 @@ int main()
 	cout << getlogin() << "@" << hostname << "$ ";
 
 	getline(cin, usrinput);
-	string commandName, argument1, argument2;
 	
 	//function finds where the '#' index is at
 	int poundIndex = -1;
@@ -47,6 +46,10 @@ int main()
 	vector<string> commands;
 	while(iss >> val)
 	{
+		if (val == "exit")
+		{
+			return 0;
+		}
 		commands.push_back(val);
 	}
 	
@@ -62,14 +65,15 @@ int main()
 
 		if (i == 0)
 		{
-			string str1 = "~/usr/bin/";
+			string str1 = "/bin/";
 			str2 = str1.append(str2);
 		}
 		
 		cp[i] = new char[str2.length() + 1];
 		strcpy(cp[i], str2.c_str());
 	}
-
+	cp[size] = new char[8];
+	cp[size] = NULL;
 	//checks for array values
 	/*for (int i = 0; i < size; ++i)
 	{
@@ -84,17 +88,33 @@ int main()
 		if (execv(cp[0], cp) == -1)
 		{
 			perror("EXECLV FAILED: ");
+
+			for (int i = 0; i < size; ++i)
+			{
+				delete[] cp[i];
+			}
+			delete [] cp;
+
 			exit(0);
 		}
 		else
 		{
 			execv(cp[0], cp);
+			for (int i = 0; i < size; ++i)
+			{
+				delete[] cp[i];
+			}
+			delete [] cp;
 		}
 	}
 	else
 	{
 		wait(&status);
-		cout << " " << endl;
+		for (int i = 0; i < size; ++i)
+		{
+			delete[] cp[i];
+		}
+		delete [] cp;
 		exit(0);
 	}
 	return 0;

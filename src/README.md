@@ -27,5 +27,8 @@ Bugs:
 	2)Sometimes shows bad adress error
 	3)Will show bad address error but will work the next time around
 		(No known segmentation faults found through GDB)
-	4)
-	
+	4)May get memory allocation error due to local memory allocation availability
+		and/or segmetation fault.
+			-with newly updated respository, likeliness of not occuring has increased to
+			a knowledge of 100%;
+	5)	
