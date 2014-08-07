@@ -10,6 +10,13 @@ Rashid Goshtasbi
 All other known bugs and fixes can be sent to rgosh001@ucr.edu
 Reported bugs/fixes will be submitted to correction.
 
+File List
+---------
+Makefile
+main.cpp
+LICENSE
+README.md
+exec.script
 
 Program reviewed by the University of California, Riverside.
 ------------------------------------------------------------
