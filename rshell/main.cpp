@@ -9,7 +9,7 @@ using namespace std;
 int main()
 {
 	int child_pid;  
-	//int parent_pid = getppid();
+	int parent_pid = getppid();
 	int status = 0;
 	istringstream iss;
 	string usrinput;
@@ -47,6 +47,10 @@ int main()
 	vector<string> commands;
 	while(iss >> val)
 	{
+		if (val == "exit")
+		{
+			return 0;
+		}
 		commands.push_back(val);
 	}
 	
@@ -62,12 +66,14 @@ int main()
 
 		if (i == 0)
 		{
-			string str1 = "~/usr/bin/";
+			string str1 = "/usr/bin/";
 			str2 = str1.append(str2);
+			cout << str2<< endl;
 		}
 		
 		cp[i] = new char[str2.length() + 1];
 		strcpy(cp[i], str2.c_str());
+		cout << i << " " << cp[i] << endl;
 	}
 
 	//checks for array values
@@ -94,7 +100,6 @@ int main()
 	else
 	{
 		wait(&status);
-		cout << " " << endl;
 		exit(0);
 	}
 	return 0;
