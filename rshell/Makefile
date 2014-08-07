@@ -2,7 +2,7 @@ CFLAS = -Wall -Werror -ansi -pedantic
 
 all: rshell
 
-rshell: main.o
+rshell:
 	mkdir bin
 	g++ $(CFLAGS) main.cpp  -o bin/rshell
 
