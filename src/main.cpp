@@ -22,7 +22,11 @@ int main()
 	cout << getlogin() << "@" << hostname << "$ ";
 
 	getline(cin, usrinput);
-	
+	while (usrinput == "")
+	{
+		cout << getlogin() << "@" << hostname << "$ ";
+		getline(cin, usrinput);
+	}
 	//function finds where the '#' index is at
 	int poundIndex = -1;
 	for (int i = 0; i < usrinput.size(); ++i)
@@ -30,6 +34,7 @@ int main()
 		if(usrinput.at(i) == '#')
 		{
 			poundIndex = i;
+			break;
 		}
 	}
 
@@ -37,7 +42,7 @@ int main()
 	//so that the program will take in the command name and arguement(s)
 	if (poundIndex != -1)
 	{
-		usrinput.erase(poundIndex, usrinput.size()-1);
+		usrinput.erase(poundIndex, usrinput.size());
 	}
 	
 	//separates the strings into the vector
@@ -52,7 +57,11 @@ int main()
 		}
 		commands.push_back(val);
 	}
-	
+	if (commands.size() == 0)
+	{
+		cout << "Error: Input was empty." << endl;
+		return 0;
+	}
 	//allocating memory for the array
 	int size = commands.size();
 	char** cp;
