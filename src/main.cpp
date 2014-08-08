@@ -26,7 +26,7 @@ int main()
 		getline(cin, usrinput);
 		while (usrinput == "")
 		{
-			cout << getlogin() << "@" << hostname << "$ ";
+		//	cout << getlogin() << "@" << hostname << "$ ";
 			getline(cin, usrinput);
 		}
 
