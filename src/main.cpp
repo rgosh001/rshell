@@ -24,17 +24,6 @@ int main()
 		cout << getlogin() << "@" << hostname << "$ ";
 
 		getline(cin, usrinput);
-		while (usrinput == "")
-		{
-		//	cout << getlogin() << "@" << hostname << "$ ";
-			getline(cin, usrinput);
-		}
-
-		if (usrinput == "exit")
-		{
-			exit(0);
-		}
-
 		//function finds where the '#' index is at
 		int poundIndex = -1;
 		int andSignIndex;
@@ -66,6 +55,50 @@ int main()
 		{
 			usrinput.erase(andSignIndex, andSignIndex + 1);
 		}
+		while (usrinput == "")
+		{
+			cout << getlogin() << "@" << hostname << "$ ";
+			getline(cin, usrinput);
+			//function finds where the '#' index is at
+			int poundIndex = -1;
+			int andSignIndex;
+			bool andSign = false;
+			for (int i = 0; i < usrinput.size(); ++i)
+			{
+				if(usrinput.at(i) == '#')
+				{
+					poundIndex = i;
+					break;
+				}
+				if (usrinput.at(i) == '&')
+				{
+					andSign = true;
+					andSignIndex = i;
+					break;
+				}
+			}
+
+			//takes poundIndex and uses the erase function to remove the comments
+			//so that the program will take in the command name and arguement(s)
+			if (poundIndex != -1)
+			{
+				usrinput.erase(poundIndex, usrinput.size());
+			}
+		
+			//removes "&" so that the command line doesn't produce an error
+			if (andSign)
+			{
+				usrinput.erase(andSignIndex, andSignIndex + 1);
+			}
+		}
+
+		if (usrinput == "exit")
+		{
+			exit(0);
+		}
+
+
+
 		//separates the strings into the vector
 		iss.str(usrinput);
 		string val;
@@ -74,6 +107,7 @@ int main()
 		{
 			commands.push_back(val);
 		}
+
 		//allocating memory for the array
 		int size = commands.size();
 		char** cp;

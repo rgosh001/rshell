@@ -1,4 +1,4 @@
-Script started on Thu Aug  7 12:36:26 2014
+Script started on Fri Aug  8 12:59:26 2014
 [?1034hbash-3.2$ cd ..
 bash-3.2$ ls
 Makefile	src		tests
@@ -6,132 +6,87 @@ bash-3.2$ make
 mkdir bin
 g++  src/main.cpp  -o bin/rshell
 bash-3.2$ bin/rshell
-RashidGoshtasbi@Rashid-Goshtasbis-MacBook-Pro.local$ #empty
-Error: Input was empty.
-bash-3.2$ bin/rshell
-RashidGoshtasbi@Rashid-Goshtasbis-MacBook-Pro.local$ 
-RashidGoshtasbi@Rashid-Goshtasbis-MacBook-Pro.local$ 
-RashidGoshtasbi@Rashid-Goshtasbis-MacBook-Pro.local$ 
-RashidGoshtasbi@Rashid-Goshtasbis-MacBook-Pro.local$ 
-RashidGoshtasbi@Rashid-Goshtasbis-MacBook-Pro.local$ #inputed nothing in the above runs
-Error: Input was empty.
-bash-3.2$ bin/rshell
-RashidGoshtasbi@Rashid-Goshtasbis-MacBook-Pro.local$ ls -a
-.		.git		bin		tests
-..		Makefile	src
-bash-3.2$ bin/rshell
-RashidGoshtasbi@Rashid-Goshtasbis-MacBook-Pro.local$ ls -l
+RashidGoshtasbi@ucrwpa3-1-209-123.bulk.ucr.edu$ ls -l
 total 8
 -rw-r--r--  1 RashidGoshtasbi  staff  168 Aug  7 11:50 Makefile
-drwxr-xr-x  3 RashidGoshtasbi  staff  102 Aug  7 12:36 bin
-drwxr-xr-x  6 RashidGoshtasbi  staff  204 Aug  7 12:36 src
-drwxr-xr-x  3 RashidGoshtasbi  staff  102 Aug  7 12:36 tests
-bash-3.2$ bin/rshell
-RashidGoshtasbi@Rashid-Goshtasbis-MacBook-Pro.local$ la s -la
-total 8
-drwxr-xr-x   7 RashidGoshtasbi  staff  238 Aug  7 12:36 .
-drwxr-xr-x   8 RashidGoshtasbi  staff  272 Aug  7 08:57 ..
-drwxr-xr-x  15 RashidGoshtasbi  staff  510 Aug  7 11:50 .git
--rw-r--r--   1 RashidGoshtasbi  staff  168 Aug  7 11:50 Makefile
-drwxr-xr-x   3 RashidGoshtasbi  staff  102 Aug  7 12:36 bin
-drwxr-xr-x   6 RashidGoshtasbi  staff  204 Aug  7 12:36 src
-drwxr-xr-x   3 RashidGoshtasbi  staff  102 Aug  7 12:36 tests
-bash-3.2$ bin/rshell
-RashidGoshtasbi@Rashid-Goshtasbis-MacBook-Pro.local$ ls -al
-total 8
-drwxr-xr-x   7 RashidGoshtasbi  staff  238 Aug  7 12:36 .
-drwxr-xr-x   8 RashidGoshtasbi  staff  272 Aug  7 08:57 ..
-drwxr-xr-x  15 RashidGoshtasbi  staff  510 Aug  7 11:50 .git
--rw-r--r--   1 RashidGoshtasbi  staff  168 Aug  7 11:50 Makefile
-drwxr-xr-x   3 RashidGoshtasbi  staff  102 Aug  7 12:36 bin
-drwxr-xr-x   6 RashidGoshtasbi  staff  204 Aug  7 12:36 src
-drwxr-xr-x   3 RashidGoshtasbi  staff  102 Aug  7 12:36 tests
-bash-3.2$ bin/rshell
-RashidGoshtasbi@Rashid-Goshtasbis-MacBook-Pro.local$ ls
-Makefile	bin		src		tests
-bash-3.2$ bin/rshell
-RashidGoshtasbi@Rashid-Goshtasbis-MacBook-Pro.local$ ls -a				-l
-total 8
-drwxr-xr-x   7 RashidGoshtasbi  staff  238 Aug  7 12:36 .
-drwxr-xr-x   8 RashidGoshtasbi  staff  272 Aug  7 08:57 ..
-drwxr-xr-x  15 RashidGoshtasbi  staff  510 Aug  7 11:50 .git
--rw-r--r--   1 RashidGoshtasbi  staff  168 Aug  7 11:50 Makefile
-drwxr-xr-x   3 RashidGoshtasbi  staff  102 Aug  7 12:36 bin
-drwxr-xr-x   6 RashidGoshtasbi  staff  204 Aug  7 12:36 src
-drwxr-xr-x   3 RashidGoshtasbi  staff  102 Aug  7 12:36 tests
-bash-3.2$ bin/rshell
-RashidGoshtasbi@Rashid-Goshtasbis-MacBook-Pro.local$ ^[[A^[[A        ls -l				-a
-total 8
-drwxr-xr-x   7 RashidGoshtasbi  staff  238 Aug  7 12:36 .
-drwxr-xr-x   8 RashidGoshtasbi  staff  272 Aug  7 08:57 ..
-drwxr-xr-x  15 RashidGoshtasbi  staff  510 Aug  7 11:50 .git
--rw-r--r--   1 RashidGoshtasbi  staff  168 Aug  7 11:50 Makefile
-drwxr-xr-x   3 RashidGoshtasbi  staff  102 Aug  7 12:36 bin
-drwxr-xr-x   6 RashidGoshtasbi  staff  204 Aug  7 12:36 src
-drwxr-xr-x   3 RashidGoshtasbi  staff  102 Aug  7 12:36 tests
-bash-3.2$ bin/rshell
-RashidGoshtasbi@Rashid-Goshtasbis-MacBook-Pro.local$ ls -  				-la
-total 8
-drwxr-xr-x   7 RashidGoshtasbi  staff  238 Aug  7 12:36 .
-drwxr-xr-x   8 RashidGoshtasbi  staff  272 Aug  7 08:57 ..
-drwxr-xr-x  15 RashidGoshtasbi  staff  510 Aug  7 11:50 .git
--rw-r--r--   1 RashidGoshtasbi  staff  168 Aug  7 11:50 Makefile
-drwxr-xr-x   3 RashidGoshtasbi  staff  102 Aug  7 12:36 bin
-drwxr-xr-x   6 RashidGoshtasbi  staff  204 Aug  7 12:36 src
-drwxr-xr-x   3 RashidGoshtasbi  staff  102 Aug  7 12:36 tests
-bash-3.2$ ls[K[Kbin/rshell
-RashidGoshtasbi@Rashid-Goshtasbis-MacBook-Pro.local$ ls  					-al
-total 8
-drwxr-xr-x   7 RashidGoshtasbi  staff  238 Aug  7 12:36 .
-drwxr-xr-x   8 RashidGoshtasbi  staff  272 Aug  7 08:57 ..
-drwxr-xr-x  15 RashidGoshtasbi  staff  510 Aug  7 11:50 .git
--rw-r--r--   1 RashidGoshtasbi  staff  168 Aug  7 11:50 Makefile
-drwxr-xr-x   3 RashidGoshtasbi  staff  102 Aug  7 12:36 bin
-drwxr-xr-x   6 RashidGoshtasbi  staff  204 Aug  7 12:36 src
-drwxr-xr-x   3 RashidGoshtasbi  staff  102 Aug  7 12:36 tests
-bash-3.2$ ls -a     l
-ls: l: No such file or directory
-bash-3.2$ ls -a     l
-ls: l: No such file or directory
-bash-3.2$ #above work[K[K[K[K[K "[K[K[K[K[K[K[K[Kecho "above ls -a     l" printed as should have
-above ls -a     l printed as should have
-bash-3.2$ clear
-[H[2Jbash-3.2$ clearecho "above ls -a     l" printed as should have[C[C[C[C[C[C[C[C[C[Cls -a     l[K[1Pbin/rshell
-RashidGoshtasbi@Rashid-Goshtasbis-MacBook-Pro.local$ ls -a #egege
+drwxr-xr-x  3 RashidGoshtasbi  staff  102 Aug  8 12:59 bin
+drwxr-xr-x  5 RashidGoshtasbi  staff  170 Aug  8 12:59 src
+drwxr-xr-x  3 RashidGoshtasbi  staff  102 Aug  8 12:59 tests
+RashidGoshtasbi@ucrwpa3-1-209-123.bulk.ucr.edu$ ls -a
 .		.git		bin		tests
 ..		Makefile	src
-bash-3.2$ ls #t[Ktest test -a
+RashidGoshtasbi@ucrwpa3-1-209-123.bulk.ucr.edu$ ls -l		-a
+total 8
+drwxr-xr-x   7 RashidGoshtasbi  staff  238 Aug  8 12:59 .
+drwxr-xr-x   8 RashidGoshtasbi  staff  272 Aug  7 08:57 ..
+drwxr-xr-x  15 RashidGoshtasbi  staff  510 Aug  8 12:44 .git
+-rw-r--r--   1 RashidGoshtasbi  staff  168 Aug  7 11:50 Makefile
+drwxr-xr-x   3 RashidGoshtasbi  staff  102 Aug  8 12:59 bin
+drwxr-xr-x   5 RashidGoshtasbi  staff  170 Aug  8 12:59 src
+drwxr-xr-x   3 RashidGoshtasbi  staff  102 Aug  8 12:59 tests
+RashidGoshtasbi@ucrwpa3-1-209-123.bulk.ucr.edu$ ls -a			-l
+total 8
+drwxr-xr-x   7 RashidGoshtasbi  staff  238 Aug  8 12:59 .
+drwxr-xr-x   8 RashidGoshtasbi  staff  272 Aug  7 08:57 ..
+drwxr-xr-x  15 RashidGoshtasbi  staff  510 Aug  8 12:44 .git
+-rw-r--r--   1 RashidGoshtasbi  staff  168 Aug  7 11:50 Makefile
+drwxr-xr-x   3 RashidGoshtasbi  staff  102 Aug  8 12:59 bin
+drwxr-xr-x   5 RashidGoshtasbi  staff  170 Aug  8 12:59 src
+drwxr-xr-x   3 RashidGoshtasbi  staff  102 Aug  8 12:59 tests
+RashidGoshtasbi@ucrwpa3-1-209-123.bulk.ucr.edu$ ls -a #test
+.		.git		bin		tests
+..		Makefile	src
+RashidGoshtasbi@ucrwpa3-1-209-123.bulk.ucr.edu$ ls #test
 Makefile	bin		src		tests
-bash-3.2$ l[Kls #test test -a[C[C[C[C[C[C[C[C[C[C[6Pbin/rshell
-RashidGoshtasbi@Rashid-Goshtasbis-MacBook-Pro.local$ ^[[A^[[A        ls #test test -a
+RashidGoshtasbi@ucrwpa3-1-209-123.bulk.ucr.edu$ #test
+RashidGoshtasbi@ucrwpa3-1-209-123.bulk.ucr.edu$ ls -a
+.		.git		bin		tests
+..		Makefile	src
+RashidGoshtasbi@ucrwpa3-1-209-123.bulk.ucr.edu$ 3test     #test
+RashidGoshtasbi@ucrwpa3-1-209-123.bulk.ucr.edu$ #test
+RashidGoshtasbi@ucrwpa3-1-209-123.bulk.ucr.edu$ #t  ls -a
+.		.git		bin		tests
+..		Makefile	src
+RashidGoshtasbi@ucrwpa3-1-209-123.bulk.ucr.edu$ ls
 Makefile	bin		src		tests
-bash-3.2$ ls #test test[K[K[K[K[K[K[K[K[K[K[K[K[Kls[K[Kbin/rshell
-RashidGoshtasbi@Rashid-Goshtasbis-MacBook-Pro.local$ clear
+RashidGoshtasbi@ucrwpa3-1-209-123.bulk.ucr.edu$ clear
 EXECLV FAILED: : No such file or directory
-bash-3.2$ exit[K[K[K[K#i[Kfin[K[K[K[Kbin/rshell
-RashidGoshtasbi@Rashid-Goshtasbis-MacBook-Pro.local$ #ffefe #
-EXECLV FAILED: : No such file or directory
-bash-3.2$ #found a bug, will fix it right no[K[K[K[K[Kht now
-bash-3.2$ #found a bug, will fix it right now[C[C[C[C[C[C[C[C[C[Cbin/rshell[K#found a bug, will fix it right now[C[C[C[C[C[C[C[C[C[C[Kmake clean
-rm -rf bin
-bash-3.2$ make
-mkdir bin
-g++  src/main.cpp  -o bin/rshell
-[1msrc/main.cpp:37:4: [0m[0;1;31merror: [0m[1mnon-void function 'main' should return a value [-Wreturn-type][0m
-                        return;
-[0;1;32m                        ^
-[0m1 error generated.
-make: *** [rshell] Error 1
-bash-3.2$ make clean
-rm -rf bin
-bash-3.2$ make clean[K
-mkdir bin
-g++  src/main.cpp  -o bin/rshell
-bash-3.2$ bin/rshell
-RashidGoshtasbi@Rashid-Goshtasbis-MacBook-Pro.local$ #  testtests #
-Error: Input was empty.
-bash-3.2$ #works now
-bash-3.2$ exit
+RashidGoshtasbi@ucrwpa3-1-209-123.bulk.ucr.edu$ ls -   a
+ls: -: No such file or directory
+ls: a: No such file or directory
+RashidGoshtasbi@ucrwpa3-1-209-123.bulk.ucr.edu$ ls -  				-s
+total 8
+8 Makefile	0 bin		0 src		0 tests
+RashidGoshtasbi@ucrwpa3-1-209-123.bulk.ucr.edu$ ls a
+ls: a: No such file or directory
+RashidGoshtasbi@ucrwpa3-1-209-123.bulk.ucr.edu$ ls -a
+.		.git		bin		tests
+..		Makefile	src
+RashidGoshtasbi@ucrwpa3-1-209-123.bulk.ucr.edu$ ls -a  		 				ia
+ls: ia: No such file or directory
+RashidGoshtasbi@ucrwpa3-1-209-123.bulk.ucr.edu$ ^[[A    ls -  			-a
+.		.git		bin		tests
+..		Makefile	src
+RashidGoshtasbi@ucrwpa3-1-209-123.bulk.ucr.edu$ ls 									-l
+total 8
+-rw-r--r--  1 RashidGoshtasbi  staff  168 Aug  7 11:50 Makefile
+drwxr-xr-x  3 RashidGoshtasbi  staff  102 Aug  8 12:59 bin
+drwxr-xr-x  5 RashidGoshtasbi  staff  170 Aug  8 12:59 src
+drwxr-xr-x  3 RashidGoshtasbi  staff  102 Aug  8 12:59 tests
+RashidGoshtasbi@ucrwpa3-1-209-123.bulk.ucr.edu$ ex  #te   te  @ #test shjows    ows that all combinations of ls -a - and plain ls   pu lus the pound sign works
+RashidGoshtasbi@ucrwpa3-1-209-123.bulk.ucr.edu$ ls -a &
+.		.git		bin		tests
+..		Makefile	src
+RashidGoshtasbi@ucrwpa3-1-209-123.bulk.ucr.edu$ ls -a&
+RashidGoshtasbi@ucrwpa3-1-209-123.bulk.ucr.edu$ .		.git		bin		tests
+..		Makefile	src
+ls -a								&
+RashidGoshtasbi@ucrwpa3-1-209-123.bulk.ucr.edu$ .		.git		bin		tests
+..		Makefile	src
+#also the andpersign o            & works as e well
+RashidGoshtasbi@ucrwpa3-1-209-123.bulk.ucr.edu$ #end of all variation of tests
+RashidGoshtasbi@ucrwpa3-1-209-123.bulk.ucr.edu$ exit
+bash-3.2$ ext[Kit
 exit
 
-Script done on Thu Aug  7 12:50:02 2014
+Script done on Fri Aug  8 13:02:18 2014
