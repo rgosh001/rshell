@@ -37,6 +37,7 @@ int main()
 
 		//function finds where the '#' index is at
 		int poundIndex = -1;
+		int andSignIndex;
 		bool andSign = false;
 		for (int i = 0; i < usrinput.size(); ++i)
 		{
@@ -48,6 +49,7 @@ int main()
 			if (usrinput.at(i) == '&')
 			{
 				andSign = true;
+				andSignIndex = i;
 				break;
 			}
 		}
@@ -58,7 +60,12 @@ int main()
 		{
 			usrinput.erase(poundIndex, usrinput.size());
 		}
-		
+	
+		//removes "&" so that the command line doesn't produce an error
+		if (andSign)
+		{
+			usrinput.erase(andSignIndex, andSignIndex + 1);
+		}
 		//separates the strings into the vector
 		iss.str(usrinput);
 		string val;
@@ -117,7 +124,10 @@ int main()
 		else
 		{
 			//parent process, must wait for child process to finish
-			wait(0);
+			if (andSign == false)
+			{
+				wait(0);
+			}
 			for (int i = 0; i < size; ++i)
 			{
 				delete[] cp[i];
