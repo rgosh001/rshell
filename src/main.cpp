@@ -1,8 +1,11 @@
+#include <cstdlib>
 #include <iostream>
 #include <string>
+#include <cstring>
 #include <sstream>
 #include <unistd.h>
 #include <sys/types.h>
+#include <sys/wait.h>
 #include <stdio.h>
 #include <vector>
 
