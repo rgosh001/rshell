@@ -160,7 +160,7 @@ int main()
 			{
 				delete[] cp[i];
 			}
-			delete [] cp;:w
+			delete [] cp;
 
 		}
 		else
