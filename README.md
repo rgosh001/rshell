@@ -18,6 +18,14 @@ LICENSE
 README.md
 exec.script
 
+How To Run
+----------
+Clone to local directory
+cd into directory
+call make
+call bin/rshell
+then run your commands
+
 Program reviewed by the University of California, Riverside.
 ------------------------------------------------------------
 Basic Overview of Command Shells: HERE[http://linuxgazette.net/111/ramankutty.html]
