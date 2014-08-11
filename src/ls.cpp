@@ -67,7 +67,68 @@ int main(int argc, char* argv[])
       {
          commands.push_back(val);
       }
+      
+      string command;
+      vector<string> arguments;
+      vector<string> directory;
+      for (int i = 0; i < commands.size(); ++i)
+      {
+         string temp = commands.at(i);
+         if(i == 0)
+         {
+            command = temp;
+         }
+         else if(temp.at(0) == '-' && i != 0)
+         {
+            arguments.push_back(temp);
+         }
+         else if (temp.at(0) != '-' && i != 0)
+         {
+            directory.push_back(temp);
+         }
+      }
+      if (directory.size() == 0)
+      {
+         directory.push_back(".");
+      }
 
+      cout << "Command: " << command << endl;
+      for (int i = 0; i < arguments.size(); ++i)
+      {
+         cout << "Argument " << i << ": " << arguments.at(i) << endl;
+      }
+      for (int i = 0; i < directory.size(); ++i)
+      {
+         cout << "Directory " << i << ": " << directory.at(i) << endl;
+      }
+
+      cout << "End of loop" << endl << endl;
+
+      while(!directory.empty())
+      {
+         char const *dirName = directory.back().c_str();
+         DIR *dirp;
+         if (!(dirp  = opendir(dirName)))
+          {
+             cerr << "Error(" << errno << ") opening " << dirName << endl;
+             return errno;
+         }
+         dirent *direntp;
+         while ((direntp = readdir(dirp)))
+         {
+            cout << direntp->d_name << "\t";  // use stat here to find attributes of file
+         }
+            
+         closedir(dirp);
+
+         
+         directory.pop_back();
+      }
+   }
+
+}
+
+      /*
       //allocating memory for the array
       int size = commands.size();
       char ** arr;
@@ -77,11 +138,6 @@ int main(int argc, char* argv[])
       for(int i = 0; i < size; ++i)
       {
          string str = commands.at(i);
-         if(i == 0)
-         {
-            string str1 = "/bin/";
-            str = str1.append(str);
-         }
          arr[i] = new char[str.length() +1];
          strcpy(arr[i], str.c_str());
       }
@@ -89,20 +145,8 @@ int main(int argc, char* argv[])
       arr[size] = new char[8];
       arr[size] = NULL;
 
-
-      
-   }
-
-/*   char *dirName = "ls";
-   DIR *dirp;
-   if (!(dirp  = opendir(dirName)))
-    {
-       cerr << "Error(" << errno << ") opening " << dirName << endl;
-       return errno;
-   }
-   dirent *direntp;
-   while ((direntp = readdir(dirp)))
-       cout << direntp->d_name << endl;  // use stat here to find attributes of file
-   closedir(dirp);*/
-}
+      for (int i = 0; i < size; ++i)
+      {
+         cout << "Array at " << i << ": " << arr[i] << endl;
+      }*/
 
