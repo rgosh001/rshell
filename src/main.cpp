@@ -41,7 +41,7 @@ int main()
 			if (usrinput.at(i) == '&')
 			{
 				andSign = true;
-				andSignIndex = i;
+            andSignIndex = i;
 				break;
 			}
 		}
@@ -152,11 +152,16 @@ int main()
 				delete [] cp;
 				exit(0);
 			}
+         if (andSign == false)
+         {
+            wait(0);
+         }
 			for (int i = 0; i < size; ++i)
 			{
 				delete[] cp[i];
 			}
-			delete [] cp;
+			delete [] cp;:w
+
 		}
 		else
 		{
@@ -170,6 +175,7 @@ int main()
 				delete[] cp[i];
 			}
 			delete [] cp;
+         break;
 		}
 	}
 	return 0;
