@@ -18,6 +18,13 @@ LICENSE
 README.md
 exec.script
 
+How to run file
+---------------
+Clone from respository presented in
+Then cd into rshell
+call make
+then: bin/rshell
+
 Program reviewed by the University of California, Riverside.
 ------------------------------------------------------------
 Basic Overview of Command Shells: HERE[http://linuxgazette.net/111/ramankutty.html]
@@ -40,3 +47,5 @@ Bugs:
 			a knowledge of 100%;
 	5)	Depending on commands inputed from the user, they will not be supported due to
 		the location of their directory on their local machine
+   6) Pushing the execv into the background will work but will make the command line input off.
+      When you press enter, you will be able to reenter onto the same line as the command line
