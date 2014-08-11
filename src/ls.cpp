@@ -6,6 +6,7 @@
 #include <unistd.h>
 #include <stdio.h>
 #include <sys/types.h>
+#include <sys/stat.h>
 #include <dirent.h>
 #include <errno.h>
 
@@ -65,6 +66,10 @@ int main(int argc, char* argv[])
       vector<string> commands;
       while(iss >> val)
       {
+         if (val == "exit")
+         {
+            exit(0);
+         }
          commands.push_back(val);
       }
       
@@ -104,8 +109,12 @@ int main(int argc, char* argv[])
 
       cout << "End of loop" << endl << endl;
 
+      struct stat s;
       while(!directory.empty())
       {
+         stat(directory.back().c_str(), &s);
+         cout << "s.st_size = " << s.st_size << endl;
+
          char const *dirName = directory.back().c_str();
          DIR *dirp;
          if (!(dirp  = opendir(dirName)))
@@ -116,13 +125,35 @@ int main(int argc, char* argv[])
          dirent *direntp;
          while ((direntp = readdir(dirp)))
          {
-            cout << direntp->d_name << "\t";  // use stat here to find attributes of file
+            if (s.st_mode & S_IRUSR){
+               cout << 'r';
+            }
+            else {
+               cout << '-';
+            }
+            if (s.st_mode & S_IWUSR) {
+               cout << 'w';
+            }
+            else {
+               cout << '-';
+            }
+            if (s.st_mode & S_IXUSR) {
+               cout << 'x';
+            }
+            else {
+               cout << '-';
+            }
+            char buff[20];
+            struct tm * timeinfo;
+            timeinfo = localtime (&(s.st_atime));
+            strftime(buff, sizeof(buff), "%b %d %H:%M", timeinfo);
+            cout << " " << buff;
+            cout << " " << direntp->d_name << endl;  // use stat here to find attributes of file
          }
-            
          closedir(dirp);
-
          
          directory.pop_back();
+         cout << endl;
       }
    }
 
