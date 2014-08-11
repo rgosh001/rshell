@@ -1,0 +1,32 @@
+Script started on Mon Aug 11 13:10:52 2014
+[?1034hbash-3.2$ ls
+exec.script
+bash-3.2$ clear
+[H[2Jbash-3.2$ cd ..
+bash-3.2$ ls
+Makefile [34mbin[39;49m[0m      [34msrc[39;49m[0m      [34mtests[39;49m[0m
+bash-3.2$ make clean
+rm -rf bin
+bash-3.2$ make
+mkdir bin
+g++  src/main.cpp  -o bin/rshell
+bash-3.2$ bin.s[K[K/rhe[K[Kshell
+RashidGoshtasbi@ucrwpa3-1-210-20.bulk.ucr.edu$ ls
+Makefile [34mbin[39;49m[0m      [34msrc[39;49m[0m      [34mtests[39;49m[0m
+RashidGoshtasbi@ucrwpa3-1-210-20.bulk.ucr.edu$ ls -l
+total 8
+-rw-r--r--@ 1 RashidGoshtasbi  staff  168 Aug  7 11:50 Makefile
+drwxr-xr-x  3 RashidGoshtasbi  staff  102 Aug 11 13:10 [34mbin[39;49m[0m
+drwxr-xr-x@ 6 RashidGoshtasbi  staff  204 Aug 11 13:01 [34msrc[39;49m[0m
+drwxr-xr-x@ 3 RashidGoshtasbi  staff  102 Aug 11 13:10 [34mtests[39;49m[0m
+RashidGoshtasbi@ucrwpa3-1-210-20.bulk.ucr.edu$ ls -a
+[34m.[39;49m[0m        [34m..[39;49m[0m       [34m.git[39;49m[0m     Makefile [34mbin[39;49m[0m      [34msrc[39;49m[0m      [34mtests[39;49m[0m
+RashidGoshtasbi@ucrwpa3-1-210-20.bulk.ucr.edu$ ls -a &
+RashidGoshtasbi@ucrwpa3-1-210-20.bulk.ucr.edu$ [34m.[39;49m[0m        [34m..[39;49m[0m       [34m.git[39;49m[0m     Makefile [34mbin[39;49m[0m      [34msrc[39;49m[0m      [34mtests[39;49m[0m
+ls
+RashidGoshtasbi@ucrwpa3-1-210-20.bulk.ucr.edu$ Makefile [34mbin[39;49m[0m      [34msrc[39;49m[0m      [34mtests[39;49m[0m
+x exit
+bash-3.2$ exit
+exit
+
+Script done on Mon Aug 11 13:14:16 2014
