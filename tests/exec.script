@@ -1,0 +1,67 @@
+Script started on Mon Aug 11 14:09:36 2014
+[?1034hbash-3.2$ ls
+exec.script
+bash-3.2$ cd ..
+bash-3.2$ ls
+LICENSE   Makefile  README.md [34msrc[39;49m[0m       [34mtests[39;49m[0m
+bash-3.2$ make
+mkdir bin
+g++  src/main.cpp  -o bin/rshell
+bash-3.2$ bin.[K/rshell
+RashidGoshtasbi@ucrwpa3-1-210-20.bulk.ucr.edu$ ls
+LICENSE   Makefile  README.md [34mbin[39;49m[0m       [34msrc[39;49m[0m       [34mtests[39;49m[0m
+bash-3.2$ ls -a
+[34m.[39;49m[0m         [34m..[39;49m[0m        [34m.git[39;49m[0m      LICENSE   Makefile  README.md [34mbin[39;49m[0m       [34msrc[39;49m[0m       [34mtests[39;49m[0m
+bash-3.2$ ls -l
+total 24
+-rw-r--r--  1 RashidGoshtasbi  staff  1086 Aug 11 13:45 LICENSE
+-rw-r--r--@ 1 RashidGoshtasbi  staff   168 Aug  7 11:50 Makefile
+-rw-r--r--  1 RashidGoshtasbi  staff  1390 Aug 11 13:45 README.md
+drwxr-xr-x  3 RashidGoshtasbi  staff   102 Aug 11 14:09 [34mbin[39;49m[0m
+drwxr-xr-x@ 3 RashidGoshtasbi  staff   102 Aug 11 14:07 [34msrc[39;49m[0m
+drwxr-xr-x  3 RashidGoshtasbi  staff   102 Aug 11 14:09 [34mtests[39;49m[0m
+bash-3.2$ ls -a &
+[1] 2419
+bash-3.2$ [34m.[39;49m[0m         [34m..[39;49m[0m        [34m.git[39;49m[0m      LICENSE   Makefile  README.md [34mbin[39;49m[0m       [34msrc[39;49m[0m       [34mtests[39;49m[0m
+ls
+LICENSE   Makefile  README.md [34mbin[39;49m[0m       [34msrc[39;49m[0m       [34mtests[39;49m[0m
+[1]+  Done                    ls -a
+bash-3.2$ ls -l
+total 24
+-rw-r--r--  1 RashidGoshtasbi  staff  1086 Aug 11 13:45 LICENSE
+-rw-r--r--@ 1 RashidGoshtasbi  staff   168 Aug  7 11:50 Makefile
+-rw-r--r--  1 RashidGoshtasbi  staff  1390 Aug 11 13:45 README.md
+drwxr-xr-x  3 RashidGoshtasbi  staff   102 Aug 11 14:09 [34mbin[39;49m[0m
+drwxr-xr-x@ 3 RashidGoshtasbi  staff   102 Aug 11 14:07 [34msrc[39;49m[0m
+drwxr-xr-x  3 RashidGoshtasbi  staff   102 Aug 11 14:09 [34mtests[39;49m[0m
+bash-3.2$ ls -a            -l
+total 24
+drwxr-xr-x@  9 RashidGoshtasbi  staff   306 Aug 11 14:09 [34m.[39;49m[0m
+drwxr-xr-x@  6 RashidGoshtasbi  staff   204 Aug  9 15:05 [34m..[39;49m[0m
+drwxr-xr-x@ 15 RashidGoshtasbi  staff   510 Aug 11 14:07 [34m.git[39;49m[0m
+-rw-r--r--   1 RashidGoshtasbi  staff  1086 Aug 11 13:45 LICENSE
+-rw-r--r--@  1 RashidGoshtasbi  staff   168 Aug  7 11:50 Makefile
+-rw-r--r--   1 RashidGoshtasbi  staff  1390 Aug 11 13:45 README.md
+drwxr-xr-x   3 RashidGoshtasbi  staff   102 Aug 11 14:09 [34mbin[39;49m[0m
+drwxr-xr-x@  3 RashidGoshtasbi  staff   102 Aug 11 14:07 [34msrc[39;49m[0m
+drwxr-xr-x   3 RashidGoshtasbi  staff   102 Aug 11 14:09 [34mtests[39;49m[0m
+bash-3.2$ ls -l[K[K
+.git/      LICENSE    Makefile   README.md  bin/       src/       tests/     
+bash-3.2$ ls 
+.git/      LICENSE    Makefile   README.md  bin/       src/       tests/     
+bash-3.2$ ls ls                              -l[Ka
+ls: -a: No such file or directory
+ls: ls: No such file or directory
+bash-3.2$ ls ls                              -a[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K           -a
+[34m.[39;49m[0m         [34m..[39;49m[0m        [34m.git[39;49m[0m      LICENSE   Makefile  README.md [34mbin[39;49m[0m       [34msrc[39;49m[0m       [34mtests[39;49m[0m
+bash-3.2$ clear
+[H[2Jbash-3.2$ e[Kls -a #-l
+[34m.[39;49m[0m         [34m..[39;49m[0m        [34m.git[39;49m[0m      LICENSE   Makefile  README.md [34mbin[39;49m[0m       [34msrc[39;49m[0m       [34mtests[39;49m[0m
+bash-3.2$ ls #-a
+LICENSE   Makefile  README.md [34mbin[39;49m[0m       [34msrc[39;49m[0m       [34mtests[39;49m[0m
+bash-3.2$ #dn[Kone
+bash-3.2$ clear
+[H[2Jbash-3.2$ exit
+exit
+
+Script done on Mon Aug 11 14:11:36 2014
