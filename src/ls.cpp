@@ -125,24 +125,7 @@ int main(int argc, char* argv[])
          dirent *direntp;
          while ((direntp = readdir(dirp)))
          {
-            if (s.st_mode & S_IRUSR){
-               cout << 'r';
-            }
-            else {
-               cout << '-';
-            }
-            if (s.st_mode & S_IWUSR) {
-               cout << 'w';
-            }
-            else {
-               cout << '-';
-            }
-            if (s.st_mode & S_IXUSR) {
-               cout << 'x';
-            }
-            else {
-               cout << '-';
-            }
+
             char buff[20];
             struct tm * timeinfo;
             timeinfo = localtime (&(s.st_atime));
