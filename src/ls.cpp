@@ -230,50 +230,36 @@ int main(int argc, char* argv[])
       exit (0);
    }
 
-   int k = 1;
-   //start loop here somehow
-      for (int i = k; i < args.size() && args.at(i).at(0) == '-'; ++i)
+   for (int i = 1; i < args.size(); ++i)
+   {
+      if (args.at(i).at(0) != '-')
       {
-         arguments.push_back(args.at(i));
+         directory.push_back(args.at(i));
       }
+   }
+   for (int i = 1; i < args.size() && args.at(i).at(0) == '-'; ++i)
+   {
+      arguments.push_back(args.at(i));
+   }
 
-      if (directory.size() == 0)
-      {
-         directory.push_back(".");
-      }
-      print(directory, arguments);
-      clearVector(directory);
-      clearVector(arguments);
+   //if directory is empty, then we need to use current directory
+   if (directory.size() == 0)
+   {
+      directory.push_back(".");
+   }
 
+   //checks input of directory and arguments vector
+   for(int i = 0; i < directory.size(); ++i)
+   {
+      cout << directory.at(i) << endl;
+   }
+   for(int i = 0; i < arguments.size(); ++i)
+   {
+      cout << arguments.at(i) << endl;
+   }
 
-   //separates the strings into the vector
-      
-      /*cout << "\t-----FILE OUTPUT AREA-----\t" << endl;
-      print(directory, arguments);
-      clearVector(directory);
-      clearVector(arguments);
-      //break;*/
+   //runs the print function to display all directoryies and flags passed in
+   print(directory, arguments);
 
    return 0;
 }
-
-      /*
-      if(temp.at(0) == '-' && i != 0)
-      {
-         arguments.push_back(temp);
-      }
-      else if (temp.at(0) != '-' && i != 0)
-      {
-         directory.push_back(temp);
-      }*/
-
-   /*
-      for (int i = 0; i < arguments.size(); ++i)
-      {
-         cout << "Argument " << i << ": " << arguments.at(i) << endl;
-      }
-      for (int i = 0; i < directory.size(); ++i)
-      {
-         cout << "Directory " << i << ": " << directory.at(i) << endl;
-      
-   */
