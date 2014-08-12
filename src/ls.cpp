@@ -13,6 +13,12 @@
 #include <grp.h>
 
 using namespace std;
+bool isFile(const char* target)
+{
+   struct stat statbuf;
+   stat(target, &statbuf);
+   return S_ISREG(statbuf.st_mode);
+}
 
 bool isDirectory(char const * path)
 {
@@ -77,6 +83,125 @@ void print(vector<string>directory, vector<string>arguments)
    {
       string currentDirectory = directory.back();
       stat(currentDirectory.c_str(), &s);
+      if(directory.size() == 1 && isFile(currentDirectory.c_str()))
+      {
+         cout << "in here" << endl;
+         struct stat t;
+         stat(currentDirectory.c_str(), &t);
+         struct passwd *pwd;
+         struct group *grp;
+         if(l == true){
+            if (t.st_mode & S_IFDIR){
+               cout << 'd';
+            }else if(t.st_mode & S_IFLNK){
+               cout << 'l';
+            }else{
+               cout << '-';
+            }
+
+            if (t.st_mode & S_IRUSR){
+               cout << 'r';
+            } else{
+               cout << '-';
+            }
+            if (t.st_mode & S_IWUSR){
+               cout << 'w';
+            } else{
+               cout << '-';
+            }
+            if (t.st_mode & S_IXUSR){
+               cout << 'x';
+            } else{
+               cout << '-';
+            }
+
+            if (t.st_mode & S_IRGRP){
+               cout << 'r';
+            } else{
+               cout << '-';
+            }
+            if (t.st_mode & S_IWGRP){
+               cout << 'w';
+            } else{
+               cout << '-';
+            }
+            if (t.st_mode & S_IXGRP){
+               cout << 'x';
+            } else{
+               cout << '-';
+            }
+
+            if (t.st_mode & S_IROTH){
+               cout << 'r';
+            } else{
+               cout << '-';
+            }
+            if (t.st_mode & S_IWOTH){
+               cout << 'w';
+            } else{
+               cout << '-';
+            }
+            if (t.st_mode & S_IXOTH){
+               cout << 'x';
+            } else{
+               cout << '-';
+            }
+            cout << " ";
+            
+            //stdout # of links
+            cout << t.st_nlink << " ";
+
+            //stdout usrname
+            if ((pwd = getpwuid(t.st_uid)) != NULL)
+            {
+               cout << pwd->pw_name << " ";
+            }
+            else
+            {
+               cerr << "ERROR: " << errno << endl;
+               exit(0);
+            }
+            
+            //stdout groupname
+            if ((grp = getgrgid(t.st_gid)) != NULL)
+            {
+               cout << grp->gr_name << " ";
+            }
+            else
+            {
+               cerr << "ERROR: " << errno << endl;
+               exit(0);
+            }
+
+            //stdout filesize
+            cout << s.st_size << " ";
+
+            //stdout the time
+            char buff[20];
+            struct tm * timeinfo;
+            timeinfo = localtime (&(t.st_mtime));
+            strftime(buff, sizeof(buff), "%b %d %H:%M", timeinfo);
+            cout << buff << " ";
+         }
+
+         //stdout the name of the file
+         if (l == false)
+         {
+            cout << currentDirectory.erase(0, 2)<< " ";
+         }
+         else
+         {
+            cout << currentDirectory << " ";
+         }
+         cout << endl;
+         break;
+      }
+
+      if(currentDirectory.at(2) == '/' && currentDirectory.at(1) == '/')
+      {
+         currentDirectory.erase(0,2);
+      }
+      cout << currentDirectory << ": " << endl;
       char const *dirName = directory.back().c_str();
       DIR *dirp;
       if (!(dirp  = opendir(dirName)))
@@ -92,18 +217,32 @@ void print(vector<string>directory, vector<string>arguments)
          fullPath.append("/");
          string fileName = direntp->d_name;
          fullPath.append(fileName);
+
+
          if(direntp->d_name[0] == '.' && a == false)
          {
             continue;
          }
+
+         struct stat buf;
+         stat(fullPath.c_str(), &buf);
+         struct passwd *pwd;
+         struct group *grp;
+
+         if (R)
+         {
+            if (buf.st_mode & S_IFDIR){
+            directory.push_back(fullPath);
+            }
+         }
+
          if(l == true){
-            struct stat buf;
-            stat(fullPath.c_str(), &buf);
-            struct passwd *pwd;
-            struct group *grp;
+
             if (buf.st_mode & S_IFDIR){
                cout << 'd';
-            } else{
+            }else if(buf.st_mode & S_IFLNK){
+               cout << 'l';
+            }else{
                cout << '-';
             }
 
@@ -203,7 +342,11 @@ void print(vector<string>directory, vector<string>arguments)
       }
       closedir(dirp);
       directory.pop_back();
-      cout << endl;
+      cout << endl << endl;
+      if (directory.size() == 1)
+      {
+         return;
+      }
    }
 }
 
@@ -235,11 +378,13 @@ int main(int argc, char* argv[])
          directory.push_back(st1);
       }
    }
-   for (int i = 1; i < args.size() && args.at(i).at(0) == '-'; ++i)
+   for (int i = 1; i < args.size(); ++i)
    {
-      arguments.push_back(args.at(i));
+      if (args.at(i).at(0) == '-')
+      {
+         arguments.push_back(args.at(i));
+      }
    }
-
    if(directory.size() == 0)
    {
       directory.push_back("./");
@@ -254,7 +399,7 @@ int main(int argc, char* argv[])
    }
    for(int i = 0; i < arguments.size(); ++i)
    {
-      cout << arguments.at(i) << endl;
+      cout << "arguments: " << arguments.at(i) << endl;
    }*/
 
    //runs the print function to display all directoryies and flags passed in
