@@ -82,7 +82,7 @@ void print(vector<string>directory, vector<string>arguments)
       if (!(dirp  = opendir(dirName)))
        {
           cerr << "Error(" << errno << ") opening " << dirName << endl;
-          cout << errno;
+          cout << errno << endl;
           exit(0);
       }
       dirent *direntp;
@@ -224,7 +224,7 @@ int main(int argc, char* argv[])
    {
       if(directory.size() == 0)
       {
-         directory.push_back(".");
+         directory.push_back("./");
       }
       print(directory, arguments);
       exit (0);
@@ -234,7 +234,10 @@ int main(int argc, char* argv[])
    {
       if (args.at(i).at(0) != '-')
       {
-         directory.push_back(args.at(i));
+         string path = "./";
+         string st1 = args.at(i);
+         st1.insert(0,path);
+         directory.push_back(st1);
       }
    }
    for (int i = 1; i < args.size() && args.at(i).at(0) == '-'; ++i)
