@@ -14,6 +14,13 @@
 
 using namespace std;
 
+bool isDirectory(char const * path)
+{
+   struct stat s;
+   stat(path, &s);
+   return S_ISDIR(s.st_mode);
+}
+
 void clearVector(vector<string>&temp)
 {
    while(!temp.empty())
@@ -179,45 +186,37 @@ int main(int argc, char* argv[])
    {
       exit(0);
    }
-
-   //separates the strings into the vector
+   
    vector<string> arguments;
    vector<string> directory;
-   bool matchDirectoryArguments = true;
-   int argsSize = args.size();
-   int argsIndex = 1;
-   while(matchDirectoryArguments)
+   if(args.size() == 1)
    {
-      if(argsSize == 0)
-      {
-         break;
-      }
-      for (int i = argsIndex; i < args.size(); ++i)
-      {
-         string temp = args.at(i);
-         if (temp.at(0) == '-')
-         {
-            arguments.push_back(temp);
-            --argsSize;
-         }
-         else
-         {
-            argsIndex = i;
-            break;
-         }
-      }
       if(directory.size() == 0)
       {
          directory.push_back(".");
       }
+      print(directory, arguments);
+      exit (0);
+   }
+
+   for (int i = 1; i < args.size() && args.at(i).at(0) == '-'; ++i)
+   {
+      arguments.push_back(args.at(i));
+   }
+
+   for(int i = 0; i < arguments.size(); ++i)
+   {
+      cout << arguments.at(i) << endl;
+   }
+
+   //separates the strings into the vector
       
-      cout << "\t-----FILE OUTPUT AREA-----\t" << endl;
+      /*cout << "\t-----FILE OUTPUT AREA-----\t" << endl;
       print(directory, arguments);
       clearVector(directory);
       clearVector(arguments);
-      //break;
-   }
-   
+      //break;*/
+
    return 0;
 }
 
