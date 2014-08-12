@@ -9,158 +9,192 @@
 #include <sys/stat.h>
 #include <dirent.h>
 #include <errno.h>
+#include <pwd.h>
 
 using namespace std;
 
 int main(int argc, char* argv[])
 {
 
-   string usrinput;
-   
-   bool runShell = true;
-   while(runShell)
+   vector<string> args;
+   for (int i = 0; i < argc; ++i)
    {
-      istringstream iss;
-
-      //getting user input from the command line and will
-      //stream it into a vector
-      getline(cin, usrinput);
-
-      //need to get rid of "#" for comments
-      int poundIndex = false;
-
-      //need to check for "&" for background process
-      int andSignIndex;
-      int andSign = false;
-      for(int i = 0; i < usrinput.size(); ++i)
-      {
-         if(usrinput.at(i) == '#')
-         {
-            poundIndex = i;
-            break;
-         }
-         if (usrinput.at(i) == '&')
-         {
-            andSign = true;
-            andSignIndex = i;
-            break;
-         }
-
-      }
-
-      //takes poundIndex and uses the erase function to remove the comments
-      if(poundIndex != false)
-      {
-         usrinput.erase(poundIndex, usrinput.size());
-      }
-      
-      //removed "&" so that the command line doesn't produce an error
-      if (andSign)
-      {
-         exit(0);
-      }
-
-      //separates the strings into the vector
-      iss.str(usrinput);
-      string val;
-      vector<string> commands;
-      while(iss >> val)
-      {
-         if (val == "exit")
-         {
-            exit(0);
-         }
-         commands.push_back(val);
-      }
-      
-      string command;
-      vector<string> arguments;
-      vector<string> directory;
-      for (int i = 0; i < commands.size(); ++i)
-      {
-         string temp = commands.at(i);
-         if(i == 0)
-         {
-            command = temp;
-         }
-         else if(temp.at(0) == '-' && i != 0)
-         {
-            arguments.push_back(temp);
-         }
-         else if (temp.at(0) != '-' && i != 0)
-         {
-            directory.push_back(temp);
-         }
-      }
-      if (directory.size() == 0)
-      {
-         directory.push_back(".");
-      }
-
-      cout << "Command: " << command << endl;
-      for (int i = 0; i < arguments.size(); ++i)
-      {
-         cout << "Argument " << i << ": " << arguments.at(i) << endl;
-      }
-      for (int i = 0; i < directory.size(); ++i)
-      {
-         cout << "Directory " << i << ": " << directory.at(i) << endl;
-      }
-
-      cout << "End of loop" << endl << endl;
-
-      struct stat s;
-      while(!directory.empty())
-      {
-         stat(directory.back().c_str(), &s);
-         cout << "s.st_size = " << s.st_size << endl;
-
-         char const *dirName = directory.back().c_str();
-         DIR *dirp;
-         if (!(dirp  = opendir(dirName)))
-          {
-             cerr << "Error(" << errno << ") opening " << dirName << endl;
-             return errno;
-         }
-         dirent *direntp;
-         while ((direntp = readdir(dirp)))
-         {
-
-            char buff[20];
-            struct tm * timeinfo;
-            timeinfo = localtime (&(s.st_atime));
-            strftime(buff, sizeof(buff), "%b %d %H:%M", timeinfo);
-            cout << " " << buff;
-            cout << " " << direntp->d_name << endl;  // use stat here to find attributes of file
-         }
-         closedir(dirp);
-         
-         directory.pop_back();
-         cout << endl;
-      }
+      args.push_back(argv[i]);
+   }
+   
+   //check for exit command
+   if (args.at(0) == "exit")
+   {
+      exit(0);
    }
 
+   //need to get rid of "#" for comments
+   int poundIndex = false;
+
+   //need to check for "&" for background process
+   int andSignIndex;
+   int andSign = false;
+   
+   for(int i = 0; i < args.size(); ++i)
+   {
+      if(args.at(i) == "#")
+      {
+         poundIndex = i;
+         break;
+      }
+      if (args.at(i) == "&")
+      {
+         andSign = true;
+         andSignIndex = i;
+         break;
+      }
+   }
+   
+   //separates the strings into the vector
+   string command;
+   vector<string> arguments;
+   vector<string> directory;
+   for (int i = 0; i < args.size(); ++i)
+   {
+      string temp = args.at(i);
+      if(i == 0)
+      {
+         command = temp;
+      }
+      else if(temp.at(0) == '-' && i != 0)
+      {
+         arguments.push_back(temp);
+      }
+      else if (temp.at(0) != '-' && i != 0)
+      {
+         directory.push_back(temp);
+      }
+   }
+   if (directory.size() == 0)
+   {
+      directory.push_back(".");
+   }
+
+   cout << "Command: " << command << endl;
+   for (int i = 0; i < arguments.size(); ++i)
+   {
+      cout << "Argument " << i << ": " << arguments.at(i) << endl;
+   }
+   for (int i = 0; i < directory.size(); ++i)
+   {
+      cout << "Directory " << i << ": " << directory.at(i) << endl;
+   }
+
+
+
+
+
+
+   cout << "\t-----FILE OUTPUT AREA-----\t" << endl;
+
+
+
+
+
+   
+   struct stat s;
+   vector<string> files;
+   while(!directory.empty())
+   {
+      stat(directory.back().c_str(), &s);
+
+      char const *dirName = directory.back().c_str();
+      DIR *dirp;
+      if (!(dirp  = opendir(dirName)))
+       {
+          cerr << "Error(" << errno << ") opening " << dirName << endl;
+          return errno;
+      }
+      dirent *direntp;
+      while ((direntp = readdir(dirp)))
+      {
+         struct stat buf;
+         stat(direntp->d_name, &buf);
+         if (buf.st_mode & S_IFDIR){
+            cout << 'd';
+         } else{
+            cout << '-';
+         }
+
+         if (buf.st_mode & S_IRUSR){
+            cout << 'r';
+         } else{
+            cout << '-';
+         }
+         if (buf.st_mode & S_IWUSR){
+            cout << 'w';
+         } else{
+            cout << '-';
+         }
+         if (buf.st_mode & S_IXUSR){
+            cout << 'x';
+         } else{
+            cout << '-';
+         }
+
+         if (buf.st_mode & S_IRGRP){
+            cout << 'r';
+         } else{
+            cout << '-';
+         }
+         if (buf.st_mode & S_IWGRP){
+            cout << 'w';
+         } else{
+            cout << '-';
+         }
+         if (buf.st_mode & S_IXGRP){
+            cout << 'x';
+         } else{
+            cout << '-';
+         }
+
+         if (buf.st_mode & S_IROTH){
+            cout << 'r';
+         } else{
+            cout << '-';
+         }
+         if (buf.st_mode & S_IWOTH){
+            cout << 'w';
+         } else{
+            cout << '-';
+         }
+         if (buf.st_mode & S_IXOTH){
+            cout << 'x';
+         } else{
+            cout << '-';
+         }
+
+         cout << " ";
+         
+         cout << getpwuid(buf.st_uid)<< " ";
+
+         //stdout the time
+         char buff[20];
+         struct tm * timeinfo;
+         timeinfo = localtime (&(buf.st_mtime));
+         strftime(buff, sizeof(buff), "%b %d %H:%M", timeinfo);
+         cout << buff << " ";
+
+         //stdout the name of the file
+         cout << direntp->d_name << endl;
+         files.push_back(direntp->d_name);
+      }
+      closedir(dirp);
+      
+      directory.pop_back();
+      cout << endl;
+   }
+   return 0;
 }
 
-      /*
-      //allocating memory for the array
-      int size = commands.size();
-      char ** arr;
-      arr = new char*[size * sizeof(char*)];
-
-      //copies command and argument(s) to array
-      for(int i = 0; i < size; ++i)
-      {
-         string str = commands.at(i);
-         arr[i] = new char[str.length() +1];
-         strcpy(arr[i], str.c_str());
-      }
-
-      arr[size] = new char[8];
-      arr[size] = NULL;
-
-      for (int i = 0; i < size; ++i)
-      {
-         cout << "Array at " << i << ": " << arr[i] << endl;
-      }*/
-
+/*
+         char buff[20];
+         struct tm * timeinfo;
+         timeinfo = localtime (&(s.st_atime));
+         strftime(buff, sizeof(buff), "%b %d %H:%M", timeinfo);
+*/
