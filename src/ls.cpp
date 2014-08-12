@@ -14,6 +14,14 @@
 
 using namespace std;
 
+void clearVector(vector<string>&temp)
+{
+   while(!temp.empty())
+   {
+      temp.pop_back();
+   }
+}
+
 bool checkArg(vector<string>arguments, string flag)
 {
    for(int i = 0; i < arguments.size(); ++i)
@@ -172,73 +180,64 @@ int main(int argc, char* argv[])
       exit(0);
    }
 
-   //need to get rid of "#" for comments
-   int poundIndex = false;
-
-   //need to check for "&" for background process
-   int andSignIndex;
-   int andSign = false;
-   
-   for(int i = 0; i < args.size(); ++i)
-   {
-      if(args.at(i) == "#")
-      {
-         poundIndex = i;
-         break;
-      }
-      if (args.at(i) == "&")
-      {
-         andSign = true;
-         andSignIndex = i;
-         break;
-      }
-   }
-   
    //separates the strings into the vector
-   string command;
    vector<string> arguments;
    vector<string> directory;
-   for (int i = 0; i < args.size(); ++i)
+   bool matchDirectoryArguments = true;
+   int argsSize = args.size();
+   int argsIndex = 1;
+   while(matchDirectoryArguments)
    {
-      string temp = args.at(i);
-      if(i == 0)
+      if(argsSize == 0)
       {
-         command = temp;
+         break;
       }
-      else if(temp.at(0) == '-' && i != 0)
+      for (int i = argsIndex; i < args.size(); ++i)
+      {
+         string temp = args.at(i);
+         if (temp.at(0) == '-')
+         {
+            arguments.push_back(temp);
+            --argsSize;
+         }
+         else
+         {
+            argsIndex = i;
+            break;
+         }
+      }
+      if(directory.size() == 0)
+      {
+         directory.push_back(".");
+      }
+      
+      cout << "\t-----FILE OUTPUT AREA-----\t" << endl;
+      print(directory, arguments);
+      clearVector(directory);
+      clearVector(arguments);
+      //break;
+   }
+   
+   return 0;
+}
+
+      /*
+      if(temp.at(0) == '-' && i != 0)
       {
          arguments.push_back(temp);
       }
       else if (temp.at(0) != '-' && i != 0)
       {
          directory.push_back(temp);
+      }*/
+
+   /*
+      for (int i = 0; i < arguments.size(); ++i)
+      {
+         cout << "Argument " << i << ": " << arguments.at(i) << endl;
       }
-   }
-   if (directory.size() == 0)
-   {
-      directory.push_back(".");
-   }
-
-   cout << "Command: " << command << endl;
-   for (int i = 0; i < arguments.size(); ++i)
-   {
-      cout << "Argument " << i << ": " << arguments.at(i) << endl;
-   }
-   for (int i = 0; i < directory.size(); ++i)
-   {
-      cout << "Directory " << i << ": " << directory.at(i) << endl;
-   }
-
-   cout << "\t-----FILE OUTPUT AREA-----\t" << endl;
-
-   print(directory, arguments);
-   
-   return 0;
-}
-
-/*
-         char buff[20];
-         struct tm * timeinfo;
-         timeinfo = localtime (&(s.st_atime));
-         strftime(buff, sizeof(buff), "%b %d %H:%M", timeinfo);
-*/
+      for (int i = 0; i < directory.size(); ++i)
+      {
+         cout << "Directory " << i << ": " << directory.at(i) << endl;
+      }
+   */
