@@ -42,9 +42,34 @@ bool checkArg(vector<string>arguments, string flag)
 }
 void print(vector<string>directory, vector<string>arguments)
 {
-   bool l = checkArg(arguments, "-l");
-   bool a = checkArg(arguments, "-a");
-   bool R = checkArg(arguments, "-R");
+   string combinedArg = "";
+   int t = 0;
+   while(!arguments.empty())
+   {
+      string temp = arguments.back();
+      temp.erase(0, 1);
+      combinedArg.append(temp);
+      arguments.pop_back();
+   }
+   cout << "CombinedArg: " << combinedArg << endl;
+   bool a = false;
+   bool l = false;
+   bool R = false;
+   for(int i = 0; i < combinedArg.size(); ++i)
+   {
+      if(combinedArg.at(i) == 'l')
+      {
+         l = true;
+      }
+      if(combinedArg.at(i) == 'a')
+      {
+         a = true;
+      }
+      if(combinedArg.at(i) == 'R')
+      {
+         R = true;
+      }
+   }
 
    struct stat s;
    vector<string> files;
@@ -67,106 +92,112 @@ void print(vector<string>directory, vector<string>arguments)
          {
             continue;
          }
-         struct stat buf;
-         stat(direntp->d_name, &buf);
-         struct passwd *pwd;
-         struct group *grp;
-         if (buf.st_mode & S_IFDIR){
-            cout << 'd';
-         } else{
-            cout << '-';
-         }
+         if(l == true){
+            struct stat buf;
+            stat(direntp->d_name, &buf);
+            struct passwd *pwd;
+            struct group *grp;
+            if (buf.st_mode & S_IFDIR){
+               cout << 'd';
+            } else{
+               cout << '-';
+            }
 
-         if (buf.st_mode & S_IRUSR){
-            cout << 'r';
-         } else{
-            cout << '-';
-         }
-         if (buf.st_mode & S_IWUSR){
-            cout << 'w';
-         } else{
-            cout << '-';
-         }
-         if (buf.st_mode & S_IXUSR){
-            cout << 'x';
-         } else{
-            cout << '-';
-         }
+            if (buf.st_mode & S_IRUSR){
+               cout << 'r';
+            } else{
+               cout << '-';
+            }
+            if (buf.st_mode & S_IWUSR){
+               cout << 'w';
+            } else{
+               cout << '-';
+            }
+            if (buf.st_mode & S_IXUSR){
+               cout << 'x';
+            } else{
+               cout << '-';
+            }
 
-         if (buf.st_mode & S_IRGRP){
-            cout << 'r';
-         } else{
-            cout << '-';
-         }
-         if (buf.st_mode & S_IWGRP){
-            cout << 'w';
-         } else{
-            cout << '-';
-         }
-         if (buf.st_mode & S_IXGRP){
-            cout << 'x';
-         } else{
-            cout << '-';
-         }
+            if (buf.st_mode & S_IRGRP){
+               cout << 'r';
+            } else{
+               cout << '-';
+            }
+            if (buf.st_mode & S_IWGRP){
+               cout << 'w';
+            } else{
+               cout << '-';
+            }
+            if (buf.st_mode & S_IXGRP){
+               cout << 'x';
+            } else{
+               cout << '-';
+            }
 
-         if (buf.st_mode & S_IROTH){
-            cout << 'r';
-         } else{
-            cout << '-';
-         }
-         if (buf.st_mode & S_IWOTH){
-            cout << 'w';
-         } else{
-            cout << '-';
-         }
-         if (buf.st_mode & S_IXOTH){
-            cout << 'x';
-         } else{
-            cout << '-';
-         }
-         cout << " ";
-         
-         //stdout # of links
-         cout << buf.st_nlink << " ";
+            if (buf.st_mode & S_IROTH){
+               cout << 'r';
+            } else{
+               cout << '-';
+            }
+            if (buf.st_mode & S_IWOTH){
+               cout << 'w';
+            } else{
+               cout << '-';
+            }
+            if (buf.st_mode & S_IXOTH){
+               cout << 'x';
+            } else{
+               cout << '-';
+            }
+            cout << " ";
+            
+            //stdout # of links
+            cout << buf.st_nlink << " ";
 
-         //stdout usrname
-         if ((pwd = getpwuid(buf.st_uid)) != NULL)
-         {
-            cout << pwd->pw_name << " ";
-         }
-         else
-         {
-            cerr << "ERROR: " << errno << endl;
-            exit(0);
-         }
-         
-         //stdout groupname
-         if ((grp = getgrgid(buf.st_gid)) != NULL)
-         {
-            cout << grp->gr_name << " ";
-         }
-         else
-         {
-            cerr << "ERROR: " << errno << endl;
-            exit(0);
-         }
+            //stdout usrname
+            if ((pwd = getpwuid(buf.st_uid)) != NULL)
+            {
+               cout << pwd->pw_name << " ";
+            }
+            else
+            {
+               cerr << "ERROR: " << errno << endl;
+               exit(0);
+            }
+            
+            //stdout groupname
+            if ((grp = getgrgid(buf.st_gid)) != NULL)
+            {
+               cout << grp->gr_name << " ";
+            }
+            else
+            {
+               cerr << "ERROR: " << errno << endl;
+               exit(0);
+            }
 
-         //stdout filesize
-         cout << buf.st_size << " ";
+            //stdout filesize
+            cout << buf.st_size << " ";
 
-         //stdout the time
-         char buff[20];
-         struct tm * timeinfo;
-         timeinfo = localtime (&(buf.st_mtime));
-         strftime(buff, sizeof(buff), "%b %d %H:%M", timeinfo);
-         cout << buff << " ";
-
+            //stdout the time
+            char buff[20];
+            struct tm * timeinfo;
+            timeinfo = localtime (&(buf.st_mtime));
+            strftime(buff, sizeof(buff), "%b %d %H:%M", timeinfo);
+            cout << buff << " ";
+         }
          //stdout the name of the file
-         cout << direntp->d_name << endl;
-         files.push_back(direntp->d_name);
+         if (l == false)
+         {
+            cout << direntp->d_name << " ";
+         }
+         else
+         {
+            cout << direntp->d_name << endl;
+         }
       }
       closedir(dirp);
-      
       directory.pop_back();
       cout << endl;
    }
@@ -199,15 +230,21 @@ int main(int argc, char* argv[])
       exit (0);
    }
 
-   for (int i = 1; i < args.size() && args.at(i).at(0) == '-'; ++i)
-   {
-      arguments.push_back(args.at(i));
-   }
+   int k = 1;
+   //start loop here somehow
+      for (int i = k; i < args.size() && args.at(i).at(0) == '-'; ++i)
+      {
+         arguments.push_back(args.at(i));
+      }
 
-   for(int i = 0; i < arguments.size(); ++i)
-   {
-      cout << arguments.at(i) << endl;
-   }
+      if (directory.size() == 0)
+      {
+         directory.push_back(".");
+      }
+      print(directory, arguments);
+      clearVector(directory);
+      clearVector(arguments);
+
 
    //separates the strings into the vector
       
