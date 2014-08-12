@@ -56,22 +56,19 @@ Basic Overview of Command Shells: [HERE](http://linuxgazette.net/111/ramankutty.
 
 This program is developed to write a simple command shell called "RShell."
 
-- It will print a command promt
+- It will offer similarities such as a ls command
 
-- Read in a command on one line.
-
-- Execute the command
+- Execute the command of ls
 
 - Take in & function calls
 
 - Have special built in command "exit"
 
-- Take in comments followed from an # sign
 
 Bugs:
 	1. Input: "bin/ls -Ra" will cause a streamline of random numbers. It is similar to the representive on bash but off.
 	2. Formatting on bin/ls -l isn't formatted to the right correcty. Off by a few spaces.
-	3. 
-	4.
-	5.
+	3. Bug when trying to -R on a folder with more than 3 directories (in the works!)
+	4. Recursion still needs some fixing, found bugs with deep level ls -R commands
+	5. 
    6.
