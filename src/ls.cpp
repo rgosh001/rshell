@@ -198,28 +198,27 @@ void print(vector<string>directory, vector<string>arguments)
          cout << endl;
          break;
       }
-
-      cout << "Current Directory: " << currentDirectory << ": " << endl;
+      if (currentDirectory == ".")
+      {
+         cout << "./: " << endl;
+      }
+      else
+         cout << currentDirectory << ": " << endl;
       char const *dirName = directory.back().c_str();
       DIR *dirp;
       if (!(dirp  = opendir(dirName)))
        {
           cerr << "Error(" << errno << ") opening " << dirName << endl;
-          cout << errno << endl;
+          perror("Error is: ");
           exit(0);
       }
       dirent *direntp;
       while ((direntp = readdir(dirp)))
       {
          string fullPath = currentDirectory;
-         if(currentDirectory != "./")
-         {
-            fullPath.append("/");
-         }
-         cout << fullPath << endl;
+         fullPath.append("/");
          string fileName = direntp->d_name;
          fullPath.append(fileName);
-
 
          if(direntp->d_name[0] == '.' && a == false)
          {
@@ -374,13 +373,10 @@ int main(int argc, char* argv[])
    {
       if (args.at(i).at(0) != '-')
       {
-         if(args.at(i) != "./")
-         {
-            string path = "./";
-            string st1 = args.at(i);
-            st1.insert(0,path);
-            directory.push_back(st1);
-         }
+         //string path = "./";
+         string st1 = args.at(i);
+         //st1.insert(0,path);
+         directory.push_back(st1);
       }
    }
    //get arguments
@@ -388,27 +384,28 @@ int main(int argc, char* argv[])
    {
       if (args.at(i).at(0) == '-')
       {
-         arguments.push_back(args.at(i));
+         string temp = args.at(i);
+         arguments.push_back(temp);
       }
    }
 
    //if there are no directories, go into current directory
    if(directory.size() == 0)
    {
-      directory.push_back("./");
-      print(directory, arguments);
-      exit (0);
+      directory.push_back(".");
+      //print(directory, arguments);
+      //exit (0);
    }
 
    //checks input of directory and arguments vector
-   for(int i = 0; i < directory.size(); ++i)
+   /*for(int i = 0; i < directory.size(); ++i)
    {
       cout << directory.at(i) << endl;
    }
    for(int i = 0; i < arguments.size(); ++i)
    {
       cout << "arguments: " << arguments.at(i) << endl;
-   }
+   }*/
 
    //runs the print function to display all directoryies and flags passed in
    print(directory, arguments);
