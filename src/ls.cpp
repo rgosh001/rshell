@@ -82,14 +82,23 @@ void print(vector<string>directory, vector<string>arguments)
    while(!directory.empty())
    {
       string currentDirectory = directory.back();
-      stat(currentDirectory.c_str(), &s);
+      if(stat(currentDirectory.c_str(), &s) == -1)
+      {
+         perror("Stat Error: ");
+         exit(0);
+      }
 
       //for file input eg()
       if(directory.size() == 1 && isFile(currentDirectory.c_str()))
       {
          cout << "in here" << endl;
          struct stat t;
-         stat(currentDirectory.c_str(), &t);
+         if (stat(currentDirectory.c_str(), &t) == -1){
+            perror("Stat Error: ");
+            exit(0);
+         }
+         //ERROR CHECK for the two structs below are done when they are called.
+         //See line 161 & 172
          struct passwd *pwd;
          struct group *grp;
          if(l == true){
@@ -182,7 +191,10 @@ void print(vector<string>directory, vector<string>arguments)
             char buff[20];
             struct tm * timeinfo;
             timeinfo = localtime (&(t.st_mtime));
-            strftime(buff, sizeof(buff), "%b %d %H:%M", timeinfo);
+            if(strftime(buff, sizeof(buff), "%b %d %H:%M", timeinfo) == 0)
+            {
+               perror("Time Error: ");
+            }
             cout << buff << " ";
          }
 
@@ -226,7 +238,13 @@ void print(vector<string>directory, vector<string>arguments)
          }
 
          struct stat buf;
-         stat(fullPath.c_str(), &buf);
+         if(stat(fullPath.c_str(), &buf) == -1)
+         {
+            perror("Stat Error: ");
+            exit(0);
+         }
+         //Error check for two structs below are done during their calls below.
+         //See line 314 & 325
          struct passwd *pwd;
          struct group *grp;
 
@@ -328,7 +346,10 @@ void print(vector<string>directory, vector<string>arguments)
             char buff[20];
             struct tm * timeinfo;
             timeinfo = localtime (&(buf.st_mtime));
-            strftime(buff, sizeof(buff), "%b %d %H:%M", timeinfo);
+            if(strftime(buff, sizeof(buff), "%b %d %H:%M", timeinfo) == 0)
+            {
+               perror("Time Error: ");
+            }
             cout << buff << " ";
          }
          //stdout the name of the file
