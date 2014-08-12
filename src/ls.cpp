@@ -83,6 +83,8 @@ void print(vector<string>directory, vector<string>arguments)
    {
       string currentDirectory = directory.back();
       stat(currentDirectory.c_str(), &s);
+
+      //for file input eg()
       if(directory.size() == 1 && isFile(currentDirectory.c_str()))
       {
          cout << "in here" << endl;
@@ -197,11 +199,7 @@ void print(vector<string>directory, vector<string>arguments)
          break;
       }
 
-      if(currentDirectory.at(2) == '/' && currentDirectory.at(1) == '/')
-      {
-         currentDirectory.erase(0,2);
-      }
-      cout << currentDirectory << ": " << endl;
+      cout << "Current Directory: " << currentDirectory << ": " << endl;
       char const *dirName = directory.back().c_str();
       DIR *dirp;
       if (!(dirp  = opendir(dirName)))
@@ -214,7 +212,11 @@ void print(vector<string>directory, vector<string>arguments)
       while ((direntp = readdir(dirp)))
       {
          string fullPath = currentDirectory;
-         fullPath.append("/");
+         if(currentDirectory != "./")
+         {
+            fullPath.append("/");
+         }
+         cout << fullPath << endl;
          string fileName = direntp->d_name;
          fullPath.append(fileName);
 
@@ -367,17 +369,21 @@ int main(int argc, char* argv[])
    
    vector<string> arguments;
    vector<string> directory;
-
+   //gets directories
    for (int i = 1; i < args.size(); ++i)
    {
       if (args.at(i).at(0) != '-')
       {
-         string path = "./";
-         string st1 = args.at(i);
-         st1.insert(0,path);
-         directory.push_back(st1);
+         if(args.at(i) != "./")
+         {
+            string path = "./";
+            string st1 = args.at(i);
+            st1.insert(0,path);
+            directory.push_back(st1);
+         }
       }
    }
+   //get arguments
    for (int i = 1; i < args.size(); ++i)
    {
       if (args.at(i).at(0) == '-')
@@ -385,6 +391,8 @@ int main(int argc, char* argv[])
          arguments.push_back(args.at(i));
       }
    }
+
+   //if there are no directories, go into current directory
    if(directory.size() == 0)
    {
       directory.push_back("./");
@@ -393,14 +401,14 @@ int main(int argc, char* argv[])
    }
 
    //checks input of directory and arguments vector
-   /*for(int i = 0; i < directory.size(); ++i)
+   for(int i = 0; i < directory.size(); ++i)
    {
       cout << directory.at(i) << endl;
    }
    for(int i = 0; i < arguments.size(); ++i)
    {
       cout << "arguments: " << arguments.at(i) << endl;
-   }*/
+   }
 
    //runs the print function to display all directoryies and flags passed in
    print(directory, arguments);
