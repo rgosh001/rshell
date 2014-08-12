@@ -10,6 +10,7 @@
 #include <dirent.h>
 #include <errno.h>
 #include <pwd.h>
+#include <grp.h>
 
 using namespace std;
 
@@ -54,6 +55,7 @@ void print(vector<string>directory, vector<string>arguments)
          struct stat buf;
          stat(direntp->d_name, &buf);
          struct passwd *pwd;
+         struct group *grp;
          if (buf.st_mode & S_IFDIR){
             cout << 'd';
          } else{
@@ -109,9 +111,33 @@ void print(vector<string>directory, vector<string>arguments)
          }
          cout << " ";
          
+         //stdout # of links
+         cout << buf.st_nlink << " ";
+
          //stdout usrname
-         pwd = getpwuid(buf.st_uid);
-         cout << pwd->pw_name << " ";
+         if ((pwd = getpwuid(buf.st_uid)) != NULL)
+         {
+            cout << pwd->pw_name << " ";
+         }
+         else
+         {
+            cerr << "ERROR: " << errno << endl;
+            exit(0);
+         }
+         
+         //stdout groupname
+         if ((grp = getgrgid(buf.st_gid)) != NULL)
+         {
+            cout << grp->gr_name << " ";
+         }
+         else
+         {
+            cerr << "ERROR: " << errno << endl;
+            exit(0);
+         }
+
+         //stdout filesize
+         cout << buf.st_size << " ";
 
          //stdout the time
          char buff[20];
@@ -133,7 +159,7 @@ void print(vector<string>directory, vector<string>arguments)
 
 int main(int argc, char* argv[])
 {
-
+   //put all argv[] into a vector of strings
    vector<string> args;
    for (int i = 0; i < argc; ++i)
    {
