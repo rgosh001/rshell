@@ -1,11 +1,14 @@
 #flags for compling from hw specs
 CFLAS = -Wall -Werror -ansi -pedantic
 
-all: rshell ls
+all: clean rshell ls old_rshell
 
 rshell:
 	mkdir bin
-	g++ $(CFLAGS) src/main.cpp  -o bin/rshell
+	g++ $(CFLAGS) src/pipe.cpp  -o bin/rshell
+
+old_rshell:
+	g++ $(CFLAGS) src/main.cpp  -o bin/old_rshell
 
 ls:
 	g++ $(CFLAGS) src/ls.cpp  -o bin/ls
