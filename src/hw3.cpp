@@ -31,23 +31,31 @@ int main()
       string val;
       while(iss >> val)
       {
-         bool foundOperator = false;
+         int foundOperatorIndex;
          if (val == "<" || val == ">" || val == "|" || val == ">>")
          {
             pipes.push_back(val);
          }
          else
          {
+            bool foundOperator = false;
             for(int i = 0; i < val.size(); ++i)
             {
-               if(val == "<" || val == ">" || val == "|" || val == ">>")
+               if(val.at(i) == '<' || val.at(i) == '>' || val.at(i) == '|' || val.at(i) == ">>")
                {
                   foundOperator = true;
+                  foundOperatorIndex = i;
+                  break;
                }
             }
             if(foundOperator)
             {
-
+               if(foundOperatorIndex > 0)
+               {
+                  string wordToPush = val.substr(0, foundOperatorIndex);
+                  pipes.push_back(wordToPush);
+                  val.erase(0, foundOperatorIndex);
+               }
             }
             else
             {
@@ -66,3 +74,22 @@ int main()
    }
    return 0;
 }
+
+/*
+               if(foundOperatorIndex == 0 && val.at(foundOperatorIndex) == '>'
+                                          && val.at(foundOperatorIndex + 1) == '>')
+               {
+                  pipes.push_back(">>");
+                  val.erase(foundOperatorIndex, foundOperatorIndex + 1);
+               }
+               else if(foundOperatorIndex == val.size() - 1 && val.at(foundOperatorIndex) == '>'
+                                                        val.at(foundOperatorIndex + 1) == '>')
+               {
+                  pipes.push_back(">>");
+                  val.erase(val.size()-1, val.size());
+               }
+               else if(foundOperatorIndex + 1 == '>' )
+               {
+
+               }
+*/
