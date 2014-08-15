@@ -27,68 +27,32 @@ int main()
       }
       istringstream iss;
       iss.str(usrin);
-      vector<string> commands;
-      vector<string> names;
+      vector<string> pipes;
       string val;
       while(iss >> val)
       {
-         if(val == "" || val == " ")
+         bool foundOperator = false;
+         if (val == "<" || val == ">" || val == "|" || val == ">>")
          {
-            continue;
+            pipes.push_back(val);
          }
-         if(val == ">>")
+         else
          {
-            commands.push_back(val);
-            continue;
-         }
-         for(int i = 0; i < val.size(); ++i)
-         {
-            if(val.at(i) == '<' || val.at(i) == '|' || val.at(i) == '>')
+            for(int i = 0; i < val.size(); ++i)
             {
-               if(val.size() > 1 && (val.at(i) == '>' && val.at(i+1) == '>' && val != ""))
+               if(val == "<" || val == ">" || val == "|" || val == ">>")
                {
-                  cout << "line 50" << endl;
-                  if(val == ">>")
-                  {
-                     commands.push_back(val);
-                  }
-                  else
-                  {
-                     string front = val.substr(0,i);
-                     if(front != "")
-                     {
-                        names.push_back(front);
-                     }
-
-                     string command = val.substr(i,2);
-                     commands.push_back(command);
-
-                     val.erase(0,i+2);
-                  }
+                  foundOperator = true;
                }
-               else if(val.size() > 1)
-               {
-                  string front = val.substr(0,i);
-                  if(front != ""){
-                     names.push_back(front);
-                  }
-
-                  string command = val.substr(i,1);
-                  commands.push_back(command);
-
-                  val.erase(0,i+1);
-               }
-         //      commands.push_back(val);
-               continue;
             }
-         }
-         if(val != "<" && val != "|" && val != ">" && val != "")
-         {
-            names.push_back(val);
-         }
-         else if(val != "")
-         {
-            commands.push_back(val);
+            if(foundOperator)
+            {
+
+            }
+            else
+            {
+               pipes.push_back(vals);
+            }
          }
       }
       for(int i = 0; i < names.size(); ++i)
@@ -98,11 +62,6 @@ int main()
          {
             cout << "Command: "<< commands.at(i) << endl;
          }
-      }
-      if(commands.size() != names.size()-1)
-      {
-         cerr << "Invalid Amount of Arguments; Will Terminate Program Now" << endl;
-         exit(0);
       }
    }
    return 0;
