@@ -105,6 +105,26 @@ int main()
       {
          cout << "User Input at " <<  i << ": " << pipes.at(i) << endl;
       }
+      
+      if(pipe.at(0) != "cat")
+      {
+         cout << "Error: No input file argument." << endl;
+         exit(0);
+      }
+
+     int fd[2];
+     if(pipe(fd) == -1)
+     {
+        perror("Pipe Failed:");
+        exit(1);
+     }
+
+     int pid = fork();
+     if(pid == 0)
+     {
+
+     }
+
    }
    return 0;
 }
