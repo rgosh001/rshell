@@ -6,8 +6,11 @@
 
 #include <unistd.h>
 #include <sys/types.h>
+#include <sys/stat.h>
+#include <fcntl.h>
 #include <stdio.h>
 #include <vector>
+#include <errno.h>
 
 
 using namespace std;
@@ -16,6 +19,7 @@ int main()
 {
    while(1)
    {
+      bool wait = false;
       string usrin;
       cout << "$ ";
       getline(cin, usrin);
@@ -106,25 +110,42 @@ int main()
          cout << "User Input at " <<  i << ": " << pipes.at(i) << endl;
       }
       
-      if(pipe.at(0) != "cat")
+      if(pipes.at(pipes.size()) == "&")
+      {
+         wait = true;
+      }
+
+      if(pipes.at(0) != "cat")
       {
          cout << "Error: No input file argument." << endl;
          exit(0);
       }
-
-     int fd[2];
-     if(pipe(fd) == -1)
-     {
+      int fd2[2];
+      if(pipe(fd) == -1)
+      {
         perror("Pipe Failed:");
         exit(1);
-     }
+      }
 
-     int pid = fork();
-     if(pid == 0)
-     {
-
-     }
-
+      int pid = fork();
+      int fd = open()
+      if(pid == 0)
+      {
+         //write to the pipe
+         open
+         //write(fd[1]), "test",5);
+         close(1);
+         dup(fd[1]);
+         cout << "test" << endl;
+      }
+      else
+      {
+         //wait(0);
+         char buf[BUFSIZ];
+         read(fd[0], bf, BUFSIZE);
+         //cout << "buf = " << buf << endl;
+         //read from the pipe
+      }
    }
    return 0;
 }
