@@ -1,5 +1,4 @@
 #include <iostream>
-#include <iostream>
 #include <string>
 #include <string.h>
 #include <cstring>
@@ -41,55 +40,71 @@ int main()
             bool foundOperator = false;
             for(int i = 0; i < val.size(); ++i)
             {
-               if(val.at(i) == '<' || val.at(i) == '>' || val.at(i) == '|' || val.at(i) == ">>")
+               if(val.at(i) == '<' || val.at(i) == '>' || val.at(i) == '|')
                {
                   foundOperator = true;
                   foundOperatorIndex = i;
                   break;
                }
             }
-            if(foundOperator)
+            if(foundOperator == true)
             {
-               if(foundOperatorIndex > 0)
+               while (foundOperator == true)
                {
-                  string wordToPush = val.substr(0, foundOperatorIndex);
-                  pipes.push_back(wordToPush);
-                  val.erase(0, foundOperatorIndex);
+                  if (val == "<" || val == ">" || val == "|" || val == ">>")
+                  {
+                     pipes.push_back(val);
+                     break;
+                  }
+                  else if(foundOperatorIndex > 0)
+                  {
+                     string wordToPush = val.substr(0, foundOperatorIndex);
+                     pipes.push_back(wordToPush);
+                     val.erase(0, foundOperatorIndex);
+                  }
+                  else if(foundOperatorIndex == 0 && val.at(foundOperatorIndex + 1) == '>')
+                  {
+                     string wordToPush = val.substr(foundOperatorIndex, foundOperatorIndex+2);
+                     pipes.push_back(wordToPush);
+                     val.erase(foundOperatorIndex, foundOperatorIndex+2);
+                  }
+                  else if(foundOperatorIndex == 0)
+                  {
+                     string wordToPush = val.substr(foundOperatorIndex, foundOperatorIndex+1);
+                     pipes.push_back(wordToPush);
+                     val.erase(foundOperatorIndex, foundOperatorIndex+1);
+                  }
+                  else
+                  {
+                     pipes.push_back(val);
+                  }
+                  for(int i = 0; i < val.size(); ++i)
+                  {
+                     cout << val.size() << endl;
+                     if(val.at(i) == '<' || val.at(i) == '>' || val.at(i) == '|')
+                     {
+                        foundOperator = true;
+                        foundOperatorIndex = i;
+                        break;
+                     }
+                     else
+                     {
+                        pipes.push_back(val);
+                        foundOperator = false;
+                     }
+                  }
                }
             }
             else
             {
-               pipes.push_back(vals);
+               pipes.push_back(val);
             }
          }
       }
-      for(int i = 0; i < names.size(); ++i)
+      for(int i = 0; i < pipes.size(); ++i)
       {
-         cout << "Name: "<< names.at(i) << endl;
-         if(i < commands.size())
-         {
-            cout << "Command: "<< commands.at(i) << endl;
-         }
+         cout << "User Input at " <<  i << ": " << pipes.at(i) << endl;
       }
    }
    return 0;
 }
-
-/*
-               if(foundOperatorIndex == 0 && val.at(foundOperatorIndex) == '>'
-                                          && val.at(foundOperatorIndex + 1) == '>')
-               {
-                  pipes.push_back(">>");
-                  val.erase(foundOperatorIndex, foundOperatorIndex + 1);
-               }
-               else if(foundOperatorIndex == val.size() - 1 && val.at(foundOperatorIndex) == '>'
-                                                        val.at(foundOperatorIndex + 1) == '>')
-               {
-                  pipes.push_back(">>");
-                  val.erase(val.size()-1, val.size());
-               }
-               else if(foundOperatorIndex + 1 == '>' )
-               {
-
-               }
-*/

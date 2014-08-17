@@ -5,7 +5,7 @@ all: clean rshell ls old_rshell
 
 rshell:
 	mkdir bin
-	g++ $(CFLAGS) src/pipe.cpp  -o bin/rshell
+	g++ $(CFLAGS) src/hw3.cpp  -o bin/rshell
 
 old_rshell:
 	g++ $(CFLAGS) src/main.cpp  -o bin/old_rshell
