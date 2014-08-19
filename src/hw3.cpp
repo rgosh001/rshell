@@ -298,21 +298,21 @@ int main()
          {
             int fd = open(filename.c_str(), O_RDWR, 0777);
             close(0);
-            dup2(fd, 0);
+            dup2(fd);
             execv(cp[0], cp);
          }
          if(rightcarrat == true)
          {
             int fd = open(filename.c_str(), O_RDWR|O_CREAT, 0777);
             close(1);
-            dup2(fd, 1);
+            dup2(fd);
             execv(cp[0], cp);
          }
          if(doublecarrat == true)
          {
             int fd = open(filename.c_str(), O_RDWR|O_CREAT|O_APPEND, 0777);
             close(1);
-            dup2(fd, 1);
+            dup2(fd);
             execvp(cp[0], cp);
          }
       }
