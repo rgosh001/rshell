@@ -290,7 +290,6 @@ int main()
       //int pfd[2];
       int pid = fork();
       pids.push_back(pid);
-      int status = 0;
       if(pid == 0)
       {
          if(leftcarrat == true)
@@ -315,7 +314,7 @@ int main()
             execvp(cp[0], cp);
          }
       }
-      wait(status);
+      wait(0);
       if(status < 0)
       {
          perror("Abnormal Exit: ");
