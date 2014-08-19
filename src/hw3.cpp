@@ -300,15 +300,18 @@ int main()
             if(fd == -1)
             {
                perror("Open Failed: ");
+               exit(0);
             }
             close(0);
             if(dup(fd) == -1)
             {
                perror("Dup Failed: ");
+               exit(0);
             }
             if(execv(cp[0], cp) == -1)
             {
                perror("Execv failed: ");
+               exit(0);
             }
          }
          if(rightcarrat == true)
@@ -317,15 +320,18 @@ int main()
             if(fd == -1)
             {
                perror("Open Failed: ");
+               exit(0);
             }
             close(1);
             if(dup(fd) == -1)
             {
                perror("Dup Failed: ");
+               exit(0);
             }
             if(execv(cp[0], cp) == -1)
             {
                perror("Execv failed: ");
+               exit(0);
             }
          }
          if(doublecarrat == true)
@@ -334,15 +340,18 @@ int main()
             if(fd == -1)
             {
                perror("Open Failed: ");
+               exit(0);
             }
             close(1);
             if(dup(fd) == -1)
             {
                perror("Dup Failed: ");
+               exit(0);
             }
             if(execv(cp[0], cp) == -1)
             {
                perror("Execv failed: ");
+               exit(0);
             }
          }
       }

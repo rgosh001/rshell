@@ -33,11 +33,15 @@ main.cpp
 
 ls.cpp
 
+hw3.cpp
+
 ./tests:
 
 exec.script
 
 ls.script
+
+redirect.script
 ```
 
 How to run file
@@ -48,7 +52,7 @@ Then `cd` into rshell
 
 call make
 
-then: bin/ls OR ls if you cd into bin.
+then: bin/rshell OR ls if you cd into bin.
 
 Program reviewed by the University of California, Riverside.
 ------------------------------------------------------------
@@ -56,19 +60,17 @@ Basic Overview of Command Shells: [HERE](http://linuxgazette.net/111/ramankutty.
 
 This program is developed to write a simple command shell called "RShell."
 
-- It will offer similarities such as a ls command
+- It will offer similarities such as a file redirection command would
 
-- Execute the command of ls
+- Execute the command of ls to a file
 
-- Take in & function calls
+- Take in pipes and redirections for files
 
 - Have special built in command "exit"
 
 
 Bugs:
-	1. Input: "bin/ls -Ra" will cause a streamline of random numbers. It is similar to the representive on bash but off.
-	2. Formatting on bin/ls -l isn't formatted to the right correcty. Off by a few spaces.
-	3. Bug when trying to -R on a folder with more than 3 directories (in the works!)
-	4. Recursion still needs some fixing, found bugs with deep level ls -R commands
-	5. 
-   6.
+	1. Program isn't 100% working
+   2. Program cannot execute execv in UNIX but will in Mac OS X in some scenarios
+   3. Will compile
+   4. Will work with <, >, >> on some occasions. Bug still in program, still trying to resolve due to transfer to compile in well server.
