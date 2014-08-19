@@ -11,6 +11,7 @@
 #include <stdio.h>
 #include <vector>
 #include <errno.h>
+#include <wait.h>
 
 using namespace std;
 
@@ -289,6 +290,7 @@ int main()
       
       //int pfd[2];
       int pid = fork();
+      int status = 0;
       pids.push_back(pid);
       if(pid == 0)
       {
@@ -314,7 +316,7 @@ int main()
             execvp(cp[0], cp);
          }
       }
-      wait(0);
+      wait(&status);
       if(status < 0)
       {
          perror("Abnormal Exit: ");
