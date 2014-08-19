@@ -315,7 +315,7 @@ int main()
             execvp(cp[0], cp);
          }
       }
-      wait(&status);
+      wait(status);
       if(status < 0)
       {
          perror("Abnormal Exit: ");
