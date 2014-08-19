@@ -297,23 +297,53 @@ int main()
          if(leftcarrat == true)
          {
             int fd = open(filename.c_str(), O_RDWR);
+            if(fd == -1)
+            {
+               perror("Open Failed: ");
+            }
             close(0);
-            dup(fd);
-            execv(cp[0], cp);
+            if(dup(fd) == -1)
+            {
+               perror("Dup Failed: ");
+            }
+            if(execv(cp[0], cp) == -1)
+            {
+               perror("Execv failed: ");
+            }
          }
          if(rightcarrat == true)
          {
             int fd = open(filename.c_str(), O_RDWR|O_CREAT);
+            if(fd == -1)
+            {
+               perror("Open Failed: ");
+            }
             close(1);
-            dup(fd);
-            execv(cp[0], cp);
+            if(dup(fd) == -1)
+            {
+               perror("Dup Failed: ");
+            }
+            if(execv(cp[0], cp) == -1)
+            {
+               perror("Execv failed: ");
+            }
          }
          if(doublecarrat == true)
          {
             int fd = open(filename.c_str(), O_RDWR|O_CREAT|O_APPEND);
+            if(fd == -1)
+            {
+               perror("Open Failed: ");
+            }
             close(1);
-            dup(fd);
-            execvp(cp[0], cp);
+            if(dup(fd) == -1)
+            {
+               perror("Dup Failed: ");
+            }
+            if(execv(cp[0], cp) == -1)
+            {
+               perror("Execv failed: ");
+            }
          }
       }
       wait(&status);
