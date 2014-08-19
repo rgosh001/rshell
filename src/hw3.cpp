@@ -19,15 +19,46 @@ int main()
 {
    while(1)
    {
-      bool wait = false;
+      bool andSign = false;
+      int andSignIndex;
+      int poundIndex = -1;
+      //gets local machine name
+      char hostname[128];
+      gethostname(hostname, sizeof hostname);
       string usrin;
-      cout << "$ ";
+      cout << getlogin() << "@" << hostname << "$ ";
       getline(cin, usrin);
       
       if(usrin == "exit")
       {
          exit(0);
       }
+
+      for(int i = 0; i < usrin.size(); ++i)
+      {
+         if(usrin.at(i) == '#')
+         {
+            poundIndex = i;
+            break;
+         }
+         if(usrin.at(i) == '&')
+         {
+            andSign = true;
+            andSignIndex = i;
+            break;
+         }
+      }
+
+      if(poundIndex != -1)
+      {
+         usrin.erase(poundIndex, usrin.size());
+      }
+
+      if(andSign)
+      {
+         usrin.erase(andSignIndex, andSignIndex + 1);
+      }
+
       istringstream iss;
       iss.str(usrin);
       vector<string> pipes;
@@ -105,102 +136,156 @@ int main()
             }
          }
       }
-      if(pipes.at(pipes.size()-1) == "&")
-      {
-         wait = true;
-      }
 
-      int sizeOfArr = 1;
-      for(int i = 0; i < pipes.size(); ++i)
+      while(1)
       {
-         if(pipes.at(i) == "|")
-         {
-            ++sizeOfArr;
-         }
-         cout << "User Input at " <<  i << ": " << pipes.at(i) << endl;
-      }
-      cout << "Size of Array: " << sizeOfArr << endl;
-      int indexHolder = 0;
-      int temp = 0;
-      int count = 0;
-      int pfd[2];
-      vector<int> pidList;
-      //while(count < sizeOfArr)
-      //{
-         cout << "nigga" << endl;
-         if(temp != 0 && indexHolder != 0)
-         {
-            ++temp;
-            ++indexHolder;
-         }
+         string filename;
 
-         int size = 0;
-         for(int i = temp; i < pipes.size(); ++i)
+         bool leftcarrat = false;
+         bool rightcarrat = false;
+         bool doublecarrat = false;
+
+         int carratIndex;
+         int sizeforArray = 0;
+         int index = 0;
+         for(int i = 0; i < pipes.size(); ++i)
          {
             if(pipes.at(i) == "|")
             {
                break;
             }
-            ++size;
-            ++temp;
-         }
-         cout << size << " " << temp << endl;
-
-         int zero = 0;
-         cout << "hey" << endl;
-         char ** cp = new char*[size * sizeof(char*)];
-         for(int i = indexHolder; i < pipes.size(); ++i)
-         {
-            string str = pipes.at(i);
-            cout << "holla" << endl;
-            if(zero == 0)
+            if(pipes.at(i) == "<")
             {
-               cout << "here" << endl;
-               string str2 = "/bin/";
-               str = str2.append(str);
-               ++zero;
+               leftcarrat = true;
+               filename = pipes.at(i+1);
+               carratIndex = i;
             }
-            if(pipes.at(i) == "|")
+            if(pipes.at(i) == ">")
             {
-               break;
+               rightcarrat = true;
+               filename = pipes.at(i+1);
+               carratIndex = i;
             }
-            
-            cp[i] = new char[str.length() + 1];
-            strcpy(cp[i], str.c_str());
-            ++indexHolder;
-         }
-         cp[size] = new char[8];
-         cp[size] = NULL;
-
-         for(int i = 0; i < size; ++i)
-         {
-            cout << "Array at " << i << ": " << cp[i] << endl;
+            if(pipes.at(i) == ">>")
+            {
+               doublecarrat= true;
+               filename = pipes.at(i+1);
+               carratIndex = i;
+            }
+            ++sizeforArray;
+            ++index;
          }
          
-         int pid = fork();
-         pidList.push_back(pid);
-         
-         if(pid == 0)
+         char **cp = new char*[sizeforArray * sizeof(char*)];
+
+         if(leftcarrat == true)
          {
-            //FIRST && input redirection
-            if(count == 0)
+            for(int i = 0; i < carratIndex; ++i)
             {
-               cout << "194" << endl;
-               int fd = open(cp[0], O_RDONLY|O_CREAT);
-               close(0);
-               dup(fd);
+               string str = pipes.at(i);
+               if(pipes.at(i) != "<")
+               {
+                  if(i ==0)
+                  {
+                     string strtemp = "/bin/";
+                     str = strtemp.append(str);
+                  }
+                  cp[i] = new char[str.length() + 1];
+                  strcpy(cp[i], str.c_str());
+               }
+            }
+            cp[sizeforArray] = new char[8];
+            cp[sizeforArray] = NULL;
+
+            for(int i = 0; i < carratIndex; ++i)
+            {
+               cout << "Array at " << i << ": " << cp[i] << endl;
             }
 
-            execv("/bin/cat", "/bin/cat");
+            close(0);
+            int fd = open(filename.c_str(), O_RDWR|O_CREAT);
+            if(fd == -1)
+            {
+               perror("Open Failed: ");
+               exit(0);
+            }
+            dup2(fd, 0);
+            execvp(cp[0], cp);
          }
-         else
+
+         if(rightcarrat == true)
          {
-            cout << "Here" << endl;
+            for(int i = 0; i < carratIndex; ++i)
+            {
+               string str = pipes.at(i);
+               if(pipes.at(i) != ">")
+               {
+                  if(i ==0)
+                  {
+                     string strtemp = "/bin/";
+                     str = strtemp.append(str);
+                  }
+                  cp[i] = new char[str.length() + 1];
+                  strcpy(cp[i], str.c_str());
+               }
+            }
+            cp[sizeforArray] = new char[8];
+            cp[sizeforArray] = NULL;
+
+            for(int i = 0; i < carratIndex; ++i)
+            {
+               cout << "Array at " << i << ": " << cp[i] << endl;
+            }
+
+            close(1);
+            int fd = open(filename.c_str(), O_RDWR|O_CREAT);
+            if(fd == -1)
+            {
+               perror("Open Failed: ");
+               exit(0);
+            }
+            dup2(fd, 1);
+            execvp(cp[0], cp);
          }
-         ++count;
-      //}
-      
-         
+
+         if(doublecarrat == true)
+         {
+            for(int i = 0; i < carratIndex; ++i)
+            {
+               string str = pipes.at(i);
+               if(pipes.at(i) != ">>")
+               {
+                  if(i ==0)
+                  {
+                     string strtemp = "/bin/";
+                     str = strtemp.append(str);
+                  }
+                  cp[i] = new char[str.length() + 1];
+                  strcpy(cp[i], str.c_str());
+               }
+            }
+            cp[sizeforArray] = new char[8];
+            cp[sizeforArray] = NULL;
+
+            for(int i = 0; i < carratIndex; ++i)
+            {
+               cout << "Array at " << i << ": " << cp[i] << endl;
+            }
+
+            close(1);
+            int fd = open(filename.c_str(), O_RDWR|O_CREAT|O_APPEND);
+            if(fd == -1)
+            {
+               perror("Open Failed: ");
+               exit(0);
+            }
+            dup2(fd, 1);
+            execvp(cp[0], cp);
+         }
+
+         exit(1);
+      }
+
    }
    return 0;
 }
