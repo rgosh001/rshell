@@ -295,7 +295,7 @@ int main()
       {
          if(leftcarrat == true)
          {
-            int fd = open(filename.c_str(), O_RDWR|O_CREAT);
+            int fd = open(filename.c_str(), O_RDWR);
             close(0);
             dup2(fd, 0);
             execv(cp[0], cp);
