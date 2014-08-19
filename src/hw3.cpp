@@ -14,9 +14,23 @@
 
 using namespace std;
 
+int getNumBlocks(vector<string> pipes)
+{
+   int blocks = 0;
+   for(int i = 0; i < pipes.size(); ++i)
+   {
+      if(pipes.at(i) == "|")
+      {
+         ++blocks;
+      }
+   }
+   return blocks + 1;
+}
+
 int main()
 {
    string usrin = "";
+   vector<int> pids;
    while(usrin != "exit")
    {
       bool andSign = false;
@@ -25,7 +39,6 @@ int main()
       //gets local machine name
       char hostname[128];
       gethostname(hostname, sizeof hostname);
-      cout << "here" << endl;
       cout << getlogin() << "@" << hostname << "$ ";
       getline(cin, usrin);
       
@@ -138,12 +151,15 @@ int main()
             }
          }
       }
+
       string filename;
 
       bool leftcarrat = false;
       bool rightcarrat = false;
       bool doublecarrat = false;
+      bool piping = false;
 
+      int numBlocks = getNumBlocks(pipes);
       int carratIndex;
       int sizeforArray = 0;
       int index = 0;
@@ -151,7 +167,7 @@ int main()
       {
          if(pipes.at(i) == "|")
          {
-            break;
+            piping = true;
          }
          if(pipes.at(i) == "<")
          {
@@ -174,7 +190,7 @@ int main()
          ++sizeforArray;
          ++index;
       }
-      
+
       char **cp = new char*[sizeforArray * sizeof(char*)];
 
       if(leftcarrat == true)
@@ -200,19 +216,10 @@ int main()
          {
             cout << "Array at " << i << ": " << cp[i] << endl;
          }
-
-         close(0);
-         int fd = open(filename.c_str(), O_RDWR|O_CREAT);
-         if(fd == -1)
-         {
-            perror("Open Failed: ");
-            exit(0);
-         }
-         dup2(fd, 0);
-         execvp(cp[0], cp);
       }
-
-      if(rightcarrat == true)
+      
+      if(piping == true && leftcarrat == false && rightcarrat == false
+                                               && doublecarrat == false)
       {
          for(int i = 0; i < carratIndex; ++i)
          {
@@ -245,6 +252,31 @@ int main()
          }
          dup2(fd, 1);
          execvp(cp[0], cp);
+      }
+
+      if(rightcarrat == true)
+      {
+         for(int i = 0; i < carratIndex; ++i)
+         {
+            string str = pipes.at(i);
+            if(pipes.at(i) != ">")
+            {
+               if(i ==0)
+               {
+                  string strtemp = "/bin/";
+                  str = strtemp.append(str);
+               }
+               cp[i] = new char[str.length() + 1];
+               strcpy(cp[i], str.c_str());
+            }
+         }
+         cp[sizeforArray] = new char[8];
+         cp[sizeforArray] = NULL;
+
+         for(int i = 0; i < carratIndex; ++i)
+         {
+            cout << "Array at " << i << ": " << cp[i] << endl;
+         }
       }
 
       if(doublecarrat == true)
@@ -281,5 +313,37 @@ int main()
          dup2(fd, 1);
          execvp(cp[0], cp);
       }
+      
+      //int pfd[2];
+      int pid = fork();
+      pids.push_back(pid);
+      int status = 0;
+      if(pid == 0)
+      {
+         if(leftcarrat == true)
+         {
+            int fd = open(filename.c_str(), O_RDWR|O_CREAT);
+            close(0);
+            dup2(fd, 0);
+            execv(cp[0], cp);
+         }
+         if(rightcarrat == true)
+         {
+            int fd = open(filename.c_str(), O_RDWR|O_CREAT);
+            close(1);
+            dup2(fd, 1);
+            execv(cp[0], cp);
+         }
+      }
+      wait(&status);
+      if(status < 0)
+      {
+         perror("Abnormal Exit: ");
+      }
+      else
+      {
+         //do something
+      }
    }
+   return 0;
 }
