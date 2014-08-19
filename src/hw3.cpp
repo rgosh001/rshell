@@ -304,7 +304,7 @@ int main()
          if(rightcarrat == true)
          {
             int fd = open(filename.c_str(), O_RDWR|O_CREAT);
-            close(1);
+            close(fd);
             dup2(fd, 1);
             execv(cp[0], cp);
          }
