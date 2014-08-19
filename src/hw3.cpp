@@ -105,110 +105,102 @@ int main()
             }
          }
       }
-      for(int i = 0; i < pipes.size(); ++i)
-      {
-         cout << "User Input at " <<  i << ": " << pipes.at(i) << endl;
-      }
-
       if(pipes.at(pipes.size()-1) == "&")
       {
          wait = true;
       }
 
-      if(pipes.at(0) != "cat")
-      {
-         cout << "Error: No input file argument." << endl;
-         exit(0);
-      }
-
-      //will get the size for everything up till the next |
-      int size = 0;
+      int sizeOfArr = 1;
       for(int i = 0; i < pipes.size(); ++i)
       {
-         if(pipes.at(i) == "|") 
+         if(pipes.at(i) == "|")
          {
-            break;
+            ++sizeOfArr;
+         }
+         cout << "User Input at " <<  i << ": " << pipes.at(i) << endl;
+      }
+      cout << "Size of Array: " << sizeOfArr << endl;
+      int indexHolder = 0;
+      int temp = 0;
+      int count = 0;
+      int pfd[2];
+      vector<int> pidList;
+      //while(count < sizeOfArr)
+      //{
+         cout << "nigga" << endl;
+         if(temp != 0 && indexHolder != 0)
+         {
+            ++temp;
+            ++indexHolder;
+         }
+
+         int size = 0;
+         for(int i = temp; i < pipes.size(); ++i)
+         {
+            if(pipes.at(i) == "|")
+            {
+               break;
+            }
+            ++size;
+            ++temp;
+         }
+         cout << size << " " << temp << endl;
+
+         int zero = 0;
+         cout << "hey" << endl;
+         char ** cp = new char*[size * sizeof(char*)];
+         for(int i = indexHolder; i < pipes.size(); ++i)
+         {
+            string str = pipes.at(i);
+            cout << "holla" << endl;
+            if(zero == 0)
+            {
+               cout << "here" << endl;
+               string str2 = "/bin/";
+               str = str2.append(str);
+               ++zero;
+            }
+            if(pipes.at(i) == "|")
+            {
+               break;
+            }
+            
+            cp[i] = new char[str.length() + 1];
+            strcpy(cp[i], str.c_str());
+            ++indexHolder;
+         }
+         cp[size] = new char[8];
+         cp[size] = NULL;
+
+         for(int i = 0; i < size; ++i)
+         {
+            cout << "Array at " << i << ": " << cp[i] << endl;
+         }
+         
+         int pid = fork();
+         pidList.push_back(pid);
+         
+         if(pid == 0)
+         {
+            //FIRST && input redirection
+            if(count == 0)
+            {
+               cout << "194" << endl;
+               int fd = open(cp[0], O_RDONLY|O_CREAT);
+               close(0);
+               dup(fd);
+            }
+
+            execv("/bin/cat", "/bin/cat");
          }
          else
          {
-            ++size;
+            cout << "Here" << endl;
          }
-      }
+         ++count;
+      //}
       
-      cout << size << endl;
-
-      //copy vector up untill the | occurance into array.
-      char** cp;
-      cp = new char*[size * sizeof(char*)];
-      for(int i = 0; i < size; ++i)
-      {
-         if(pipes.at(i) != "|")
-         {
-            string tempStr = pipes.at(i);
-            cp[i] = new char[tempStr.length() + 1];
-            strcpy(cp[i], tempStr.c_str());
-         }
-      }
-
-      int toDel = size;
-      while(toDel != 0)
-      {
-         pipes.erase(pipes.begin());
-         --toDel;
-      }
-
-      cp[size] = new char[8];
-      cp[size] = NULL;
-
-      for(int i = 0; i < size; ++i)
-      {
-         cout << "Array at " << i << ": ";
-         cout << cp[i] << endl;
-      }
-
-      int fd = open(cp[0], O_RDWR|O_CREAT);
-
-      /*int fd2[2];
-      if(pipe(fd2) == -1)
-      {
-        perror("Pipe Failed:");
-        exit(1);
-      }
-
-      pid_t pid  = fork();
-      while(1)
-      {
-         if(pid == 0)
-         {
-            string test;
-            cin >> test;
-
-
-
-
-            else if (pipes.at(0) == '>')
-            {
-               close(0);
-               pipes.erase(pipes.begin());
-               int fd = open(pipes.at(0).c_str, );
-            }*/
-            //write to the pipe
-            //write(fd[1]), "test",5);
-            //dup(fd[1]);
-           // cout << "test" << endl;
-           // if(pipes.size() == 0)
-           // {
-           //    exit(0);
-           // }
+         
    }
    return 0;
 }
-
-      /*else
-      {
-         //wait(0);
-         char buf[BUFSIZ];
-         read(fd[0], bf, BUFSIZE);
-         //cout << "buf = " << buf << endl;
-         //read from the pipe
-      }*/
