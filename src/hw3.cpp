@@ -72,7 +72,6 @@ int main()
          usrin.erase(andSignIndex, andSignIndex + 1);
       }
       
-      cout << usrin << endl;
 
       istringstream iss;
       iss.str(usrin);
@@ -212,10 +211,6 @@ int main()
          cp[sizeforArray] = new char[8];
          cp[sizeforArray] = NULL;
 
-         for(int i = 0; i < carratIndex; ++i)
-         {
-            cout << "Array at " << i << ": " << cp[i] << endl;
-         }
       }
       
       if(piping == true && leftcarrat == false && rightcarrat == false
@@ -237,11 +232,6 @@ int main()
          }
          cp[sizeforArray] = new char[8];
          cp[sizeforArray] = NULL;
-
-         for(int i = 0; i < carratIndex; ++i)
-         {
-            cout << "Array at " << i << ": " << cp[i] << endl;
-         }
 
          close(1);
          int fd = open(filename.c_str(), O_RDWR|O_CREAT);
@@ -273,10 +263,6 @@ int main()
          cp[sizeforArray] = new char[8];
          cp[sizeforArray] = NULL;
 
-         for(int i = 0; i < carratIndex; ++i)
-         {
-            cout << "Array at " << i << ": " << cp[i] << endl;
-         }
       }
 
       if(doublecarrat == true)
@@ -298,20 +284,7 @@ int main()
          cp[sizeforArray] = new char[8];
          cp[sizeforArray] = NULL;
 
-         for(int i = 0; i < carratIndex; ++i)
-         {
-            cout << "Array at " << i << ": " << cp[i] << endl;
-         }
 
-         close(1);
-         int fd = open(filename.c_str(), O_RDWR|O_CREAT|O_APPEND);
-         if(fd == -1)
-         {
-            perror("Open Failed: ");
-            exit(0);
-         }
-         dup2(fd, 1);
-         execvp(cp[0], cp);
       }
       
       //int pfd[2];
@@ -333,6 +306,13 @@ int main()
             close(1);
             dup2(fd, 1);
             execv(cp[0], cp);
+         }
+         if(doublecarrat == true)
+         {
+            int fd = open(filename.c_str(), O_RDWR|O_CREAT|O_APPEND);
+            close(1);
+            dup2(fd, 1);
+            execvp(cp[0], cp);
          }
       }
       wait(&status);
