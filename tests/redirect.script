@@ -1,0 +1,63 @@
+Script started on Tue 19 Aug 2014 02:26:54 PM PDT
+~
+rgosh001@well $ make
+make: *** No targets specified and no makefile found.  Stop.
+~
+rgosh001@well $ cd[K[Kls
+[0m[01;34mDesktop[0m/  [01;34mDocuments[0m/  [01;34mDownloads[0m/  [01;34mMusic[0m/  [01;34mPictures[0m/  [01;34mPublic[0m/  [01;34mrshell[0m/  [01;34mTemplates[0m/  [01;34mVideos[0m/
+[m~
+rgosh001@well $ cd rshell
+~/rshell
+rgosh001@well $ ls
+[0m[01;34mbin[0m/  [0mLICENSE[0m  [0mMakefile[0m  [0mREADME.md[0m  [0mredirect.script[0m  [01;34msrc[0m/  [01;34mtests[0m/
+[m~/rshell
+rgosh001@well $ cd 
+~
+rgosh001@well $ ls
+[0m[01;34mDesktop[0m/  [01;34mDocuments[0m/  [01;34mDownloads[0m/  [01;34mMusic[0m/  [01;34mPictures[0m/  [01;34mPublic[0m/  [01;34mrshell[0m/  [01;34mTemplates[0m/  [01;34mVideos[0m/
+[m~
+rgosh001@well $ cd rshell
+~/rshell
+rgosh001@well $ make
+mkdir bin
+mkdir: cannot create directory `bin': File exists
+make: *** [rshell] Error 1
+~/rshell
+rgosh001@well $ make clean
+rm -rf bin
+~/rshell
+rgosh001@well $ make
+mkdir bin
+g++  src/main.cpp  -o bin/rshell
+g++  src/ls.cpp  -o bin/ls
+~/rshell
+rgosh001@well $ clear
+[H[2J~/rshell
+rgosh001@well $ bin/rshell
+rgosh001@well.cs.ucr.edu$ ca  ls >test     test
+/bin/ls: >: No such file or directory
+/bin/ls: test: No such file or directory
+~/rshell
+rgosh001@well $ bin/rshell
+rgosh001@well.cs.ucr.edu$ cat < test
+/bin/cat: <: No such file or directory
+/bin/cat: test: No such file or directory
+~/rshell
+rgosh001@well $ bin/rshell
+rgosh001@well.cs.ucr.edu$ histro  ory | grep pipe
+EXECLV FAILED: : No such file or directory
+~/rshell
+rgosh001@well $ #couldnt[K't get my[K[K[K[K[K[K[K[K[K[K[K[K[K[K[KI had it working but once I put it into a while loop and changed from execvp to exec v, everything gave me error [Ks and I spent all ngiht and [K[K[K[K[K[K[K[K[K[Kyesterday trying o [K[Kto get it to work again and evn [K[Ken today  bt[Kut I had no luck.
+~/rshell
+rgosh001@well $ #it would work when I do it on my mac sometimes but sometimes it would run into an in finite loop
+~/rshell
+rgosh001@well $ #[K#i listed all these progrl[K[K[Kblems in m [Ky readme.m[Kmd and sya[K[Kays it does compl[Kol[K[Kile BUT the only th i[K[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[K
+[K[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Ci [A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[K
+[K[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Ch ing stopin[K[Kping me from getting the program to work again is m [Ky execv call (which is passing in the corr ect path when i cout it)[K [K) and my wait be[K[Kbecause i think that is my sole ause[K[K[K[Kcase fo[K[K[K[K[Kuse for my random infiniate lo op sometimes
+~/rshell
+rgosh001@well $ I [K[K#i hope i can get some credit for trying and compiling. thanks[K you
+~/rshell
+rgosh001@well $ c[Kexit
+exit
+
+Script done on Tue 19 Aug 2014 02:29:56 PM PDT
