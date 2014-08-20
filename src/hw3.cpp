@@ -1,4 +1,3 @@
-//working post-turn in
 #include <iostream>
 #include <string>
 #include <string.h>
@@ -12,7 +11,6 @@
 #include <stdio.h>
 #include <vector>
 #include <errno.h>
-#include <wait.h>
 
 using namespace std;
 
@@ -174,18 +172,25 @@ int main()
          {
             leftcarrat = true;
             filename = pipes.at(i+1);
+            string currentdir = "./";
+            filename.insert(0, currentdir);
+            cout << filename << endl;
             carratIndex = i;
          }
          if(pipes.at(i) == ">")
          {
             rightcarrat = true;
             filename = pipes.at(i+1);
+            string currentdir = "./";
+            filename.insert(0, currentdir);
             carratIndex = i;
          }
          if(pipes.at(i) == ">>")
          {
             doublecarrat= true;
             filename = pipes.at(i+1);
+            string currentdir = "./";
+            filename.insert(0, currentdir);
             carratIndex = i;
          }
          ++sizeforArray;
@@ -215,37 +220,6 @@ int main()
 
       }
       
-      if(piping == true && leftcarrat == false && rightcarrat == false
-                                               && doublecarrat == false)
-      {
-         for(int i = 0; i < carratIndex; ++i)
-         {
-            string str = pipes.at(i);
-            if(pipes.at(i) != ">")
-            {
-               if(i ==0)
-               {
-                  string strtemp = "/bin/";
-                  str = strtemp.append(str);
-               }
-               cp[i] = new char[str.length() + 1];
-               strcpy(cp[i], str.c_str());
-            }
-         }
-         cp[sizeforArray] = new char[8];
-         cp[sizeforArray] = NULL;
-
-         close(1);
-         int fd = open(filename.c_str(), O_RDWR|O_CREAT);
-         if(fd == -1)
-         {
-            perror("Open Failed: ");
-            exit(0);
-         }
-         dup2(fd, 1);
-         execvp(cp[0], cp);
-      }
-
       if(rightcarrat == true)
       {
          for(int i = 0; i < carratIndex; ++i)
@@ -297,7 +271,8 @@ int main()
       {
          if(leftcarrat == true)
          {
-            int fd = open(filename.c_str(), O_RDWR);
+            cout << cp[0] << endl;
+            int fd = open(filename.c_str(), O_RDONLY);
             if(fd == -1)
             {
                perror("Open Failed: ");
