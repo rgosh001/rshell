@@ -11,7 +11,6 @@
 #include <stdio.h>
 #include <vector>
 #include <errno.h>
-#include <wait.h>
 
 using namespace std;
 
