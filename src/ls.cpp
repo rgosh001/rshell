@@ -91,7 +91,6 @@ void print(vector<string>directory, vector<string>arguments)
       //for file input eg()
       if(directory.size() == 1 && isFile(currentDirectory.c_str()))
       {
-         cout << "in here" << endl;
          struct stat t;
          if (stat(currentDirectory.c_str(), &t) == -1){
             perror("Stat Error: ");
@@ -210,10 +209,10 @@ void print(vector<string>directory, vector<string>arguments)
          cout << endl;
          break;
       }
-      if (currentDirectory == ".")
+      /*if (currentDirectory == ".")
       {
          cout << "./: " << endl;
-      }
+      }*/
       else
          cout << currentDirectory << ": " << endl;
       char const *dirName = directory.back().c_str();

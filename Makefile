@@ -1,10 +1,14 @@
 #flags for compling from hw specs
 CFLAS = -Wall -Werror -ansi -pedantic
 
-all: clean rshell hw3-rshell ls old_rshell
+all: rshell hw3-rshell ls old_rshell
 
+install: all
+	export PATH="~/bin:$(PATH)"
+	cp -a ./bin ~/
+   
 rshell:
-	mkdir bin
+	([ ! -d bin ] && mkdir bin) || [ -d bin ]
 	g++ $(CFLAGS) src/path.cpp  -o bin/rshell
 
 hw3-rshell:
@@ -18,3 +22,4 @@ ls:
 
 clean:
 	rm -rf bin
+	rm -rf ~/bin

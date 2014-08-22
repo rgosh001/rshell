@@ -94,7 +94,6 @@ int main()
          usrin.erase(andSignIndex, andSignIndex + 1);
       }
       
-
 		//separates the strings into the vector
 		istringstream iss;
 		iss.str(usrin);
@@ -105,56 +104,49 @@ int main()
          commands.push_back(val);
       }
 
-		//allocating memory for the array
-		int size = commands.size();
-		char** cp;
-		cp = new char*[size * sizeof(char*)];
-		
-		//copies command and argument(s) to array for EXECV()
-		for (int i = 0; i < size; ++i)
-		{
-			string str = commands.at(i);
-			if (i == 0)
-			{
-				string str1 = "/bin/";
-				str = str1.append(str);
-			}
-			cp[i] = new char[str.length() + 1];
-			strcpy(cp[i], str.c_str());
-		}
-		cp[size] = new char[8];
-		cp[size] = NULL;
-
-		//checks for array values
-		for (int i = 0; i < size; ++i)
-		{
-			cout << "Array at " << i << ": " << cp[i] << endl;
-		}
-
-		int child = fork();
+      int child = fork();
 		if (child == 0)
 		{
-			//child process
-			if (execv(cp[0], cp) == -1)
-			{
-				perror("EXECLV FAILED: ");
-				for (int i = 0; i < size; ++i)
-				{
-					delete[] cp[i];
-				}
-				delete [] cp;
-				exit(0);
-			}
-         if (andSign == false)
+         //allocating memory for the array
+         int size = commands.size();
+         char** cp;
+         cp = new char*[size * sizeof(char*)];
+         int pathindex = 0;
+         while(paths.size() != 0)
          {
-            wait(0);
-         }
-			for (int i = 0; i < size; ++i)
-			{
-				delete[] cp[i];
-			}
-			delete [] cp;
+            //copies command and argument(s) to array for EXECV()
+            for (int i = 0; i < size; ++i)
+            {
+               string str = commands.at(i);
+               if (i == 0)
+               {
+                  string str1 = paths.at(0);
+                  str = str1.append(str);
+               }
+               cp[i] = new char[str.length() + 1];
+               strcpy(cp[i], str.c_str());
+            }
+            cp[size] = new char[8];
+            cp[size] = NULL;
 
+            //checks for array values
+            for (int i = 0; i < size; ++i)
+            {
+               cout << "Array at " << i << ": " << cp[i] << endl;
+            }
+
+            //child process
+            if (execv(cp[0], cp) == -1)
+            {
+               //perror("EXECLV FAILED: ");
+               /*for (int i = 0; i < size; ++i)
+               {
+                  delete[] cp[i];
+               }
+               delete [] cp;*/
+            }
+            paths.erase(paths.begin());
+         }
 		}
 		else
 		{
@@ -163,11 +155,11 @@ int main()
 			{
 				wait(0);
 			}
-			for (int i = 0; i < size; ++i)
+			/*for (int i = 0; i < size; ++i)
 			{
 				delete[] cp[i];
 			}
-			delete [] cp;
+			delete [] cp;*/
 		}
    }
    return 0;
