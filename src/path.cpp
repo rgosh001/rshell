@@ -26,21 +26,37 @@ int main()
       cout << getlogin() << "@" << hostname << "$ ";
       getline(cin, usrin);
 
-      //path char array
-      char *patharr = getenv("PATH");
-      int patharrsize = 0;
-      for(int i = 0; i != '\0'; ++i)
+      //path char array made into string for parsing reasons
+      string strpath(getenv("PATH"));
+      cout << strpath << endl;
+      
+      vector<string> paths;
+      string temp = "";
+      for(int i = 0; i < strpath.size(); ++i)
       {
-         cout << "hi" << endl;
-         cout << patharr[i] << endl;
-         ++patharrsize;
+         if(strpath.at(i) == ':' || i == strpath.size()-1)
+         {
+            if(i == strpath.size()-1)
+            {
+               temp += strpath.at(i);
+            }
+            string slash = "/";
+            temp = temp.append(slash);
+            paths.push_back(temp);
+            temp = "";
+         }
+         else
+         {
+            temp += strpath.at(i);
+         }
       }
-      vector<char> path;
-      path.insert(path.begin(), patharr, patharr);
-      for(int i = 0; i < path.size(); ++i)
+      
+      for(int i = 0; i < paths.size(); ++i)
       {
-         cout << path.at(i) << endl;
+         cout << paths.at(i) << endl;
       }
+      
+      cout << endl << endl;
       
       if(usrin == "exit")
       {
