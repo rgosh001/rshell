@@ -11,9 +11,56 @@
 #include <stdio.h>
 #include <vector>
 #include <errno.h>
-#include <wait.h>
+//#include <wait.h>
 
 using namespace std;
+
+char* getPath(vector<string> commands)
+{
+   char *cwd;
+   cwd = new char(128);
+   char *returncwd;
+   returncwd = new char(128);
+   int lastslash = 0;
+
+   if(getcwd(cwd, 1024) == 0)
+   {
+      perror("getcwd() error");
+   }
+   if(commands.size() == 1 && commands.at(0) == "cd")
+   {
+      *returncwd = '~';
+   }
+   else if(commands.size() > 1 && commands.at(1) == "..")
+   {
+      for(int i = 0; cwd[i] != '\0'; ++i)
+      {
+         if(cwd[i] == '/')
+         {
+            lastslash = i;
+         }
+      }
+
+      for(int i = 0; cwd[i] <= lastslash; ++i)
+      {
+         returncwd[i] = cwd[i];
+      }
+      return returncwd;
+   }
+   else if(commands.size() > 1)
+   {
+      string append_path = commands.at(1);
+      char temp[append_path.size()+1];
+      temp[append_path.size()] = 0;
+      memcpy(temp, append_path.c_str(), append_path.size());
+
+      strcpy(returncwd, cwd);
+      strcpy(returncwd, temp);
+      return returncwd;
+   }
+
+   return returncwd;
+}
 
 int main()
 {
@@ -29,7 +76,7 @@ int main()
 
       //path char array made into string for parsing reasons
       string strpath(getenv("PATH"));
-      cout << strpath << endl;
+      //cout << strpath << endl;
       
       vector<string> paths;
       string temp = "";
@@ -52,12 +99,10 @@ int main()
          }
       }
       
-      for(int i = 0; i < paths.size(); ++i)
+      /*for(int i = 0; i < paths.size(); ++i)
       {
          cout << paths.at(i) << endl;
-      }
-      
-      cout << endl << endl;
+      }*/
       
       if(usrin == "exit")
       {
@@ -105,6 +150,12 @@ int main()
          commands.push_back(val);
       }
 
+      if(commands.at(0) == "cd")
+      {
+         char *path = getPath(commands);
+         cout << path << endl;
+      }
+
       int child = fork();
 		if (child == 0)
 		{
@@ -131,12 +182,16 @@ int main()
             cp[size] = NULL;
 
             //checks for array values
-            for (int i = 0; i < size; ++i)
+            /*for (int i = 0; i < size; ++i)
             {
                cout << "Array at " << i << ": " << cp[i] << endl;
-            }
+            }*/
 
             //child process
+            if(usrin == "cd")
+            {
+
+            }
             if (execv(cp[0], cp) == -1)
             {
                //perror("EXECLV FAILED: ");
