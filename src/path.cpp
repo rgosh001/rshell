@@ -47,7 +47,10 @@ char* getPath(vector<string> commands)
    if(commands.size() == 1 && commands.at(0) == "cd")
    {
       //path char array made into string for parsing reasons
-      returncwd = getenv("HOME");
+      if((returncwd = getenv("HOME")) == '\0')
+      {
+         perror("getenv failed");
+      }
       delete [] cwd;
       return returncwd;
    }
