@@ -200,7 +200,6 @@ int main()
          {
             char *path = new char[1024];
             path = getPath(commands);
-            cout << path << endl;
             if(chdir(path) == -1)
             {
                perror("cd failed");
