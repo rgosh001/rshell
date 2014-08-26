@@ -1,7 +1,5 @@
 
-"This program is a "Piping command shell" to take in exectables by a user and make a program that'll run the exectuable call via program instead from the the standard linux command library."
-
-The output of the file is a copy of the file or of other piping options included in the README.mdfile
+"This program is a "RSHELL" generic BASH to be used on many computer to take in exectables by a user and make a program that'll run the exectuable call via program instead from the the standard linux command library."
 
 Copyright (C) 2004 Rashid Goshtasbi 
 	This program is free software: you can redistribute it and/or modify

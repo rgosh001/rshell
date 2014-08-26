@@ -1,0 +1,93 @@
+Script started on Mon 25 Aug 2014 07:39:47 PM PDT
+~
+rgosh001@well $ ls
+[0m[0mdead.letter[0m  [01;34mDocuments[0m/  [01;34mMusic[0m/     [01;34mPublic[0m/  [01;32mspam.sh[0m*    [01;34mVideos[0m/
+[01;34mDesktop[0m/     [01;34mDownloads[0m/  [01;34mPictures[0m/  [01;34mrshell[0m/  [01;34mTemplates[0m/
+[m~
+rgosh001@well $ cd rshell
+~/rshell
+rgosh001@well $ make
+([ ! -d bin ] && mkdir bin) || [ -d bin ]
+g++  src/path.cpp  -o bin/rshell
+g++  src/hw3.cpp  -o bin/hw3-rshell
+g++  src/ls.cpp  -o bin/ls
+g++  src/main.cpp  -o bin/og_rshell
+~/rshell
+rgosh001@well $ bin/rsehll[K[K[K[Khell
+rgosh001@well.cs.ucr.edu$ #first bug is comments, f still calls execv, dont knw   ow how to ava   solve this progrl    ^[[C     ^[[C^[[C^[[C^[[C^[[C                    s problem
+terminate called after throwing an instance of 'std::out_of_range'
+  what():  vector::_M_range_check
+rgosh001@well.cs.ucr.edu$ ls
+bin  LICENSE  Makefile	README.md  src	tests
+rgosh001@well.cs.ucr.edu$ ls -a
+.  ..  bin  .git  LICENSE  Makefile  README.md	src  tests
+rgosh001@well.cs.ucr.edu$ ls -l
+total 24
+drwx------ 2 rgosh001 csmajs 4096 Aug 25 19:39 bin
+-rw------- 1 rgosh001 csmajs 1126 Aug 25 18:53 LICENSE
+-rw------- 1 rgosh001 csmajs  461 Aug 25 18:05 Makefile
+-rw------- 1 rgosh001 csmajs 2044 Aug 25 18:55 README.md
+drwx------ 2 rgosh001 csmajs 4096 Aug 25 19:27 src
+drwx------ 2 rgosh001 csmajs 4096 Aug 25 19:39 tests
+rgosh001@well.cs.ucr.edu$ clear
+[H[2Jrgosh001@well.cs.ucr.edu$ #clear function works too
+terminate called after throwing an instance of 'std::out_of_range'
+  what():  vector::_M_range_check
+rgosh001@well.cs.ucr.edu$ clear     pwd
+/home/csmajs/rgosh001/rshell
+rgosh001@well.cs.ucr.edu$ cd .. #taking me back one directory
+rgosh001@well.cs.ucr.edu$ pwd
+/home/csmajs/rgosh001
+rgosh001@well.cs.ucr.edu$ cd #tak es    kes me to home directory
+rgosh001@well.cs.ucr.edu$ pwd
+/home/csmajs/rgosh001
+rgosh001@well.cs.ucr.edu$ ls
+dead.letter  Documents	Music	  Public  spam.sh    Videos
+Desktop      Downloads	Pictures  rshell  Templates
+rgosh001@well.cs.ucr.edu$ cd rshell #will get me into rshell directory
+rgosh001@well.cs.ucr.edu$ ls  pwd
+/home/csmajs/rgosh001/rshell
+rgosh001@well.cs.ucr.edu$ #g  make #going to make and call rshell within        WITHIN m this rshell
+([ ! -d bin ] && mkdir bin) || [ -d bin ]
+g++  src/path.cpp  -o bin/rshell
+g++  src/hw3.cpp  -o bin/hw3-rshell
+g++  src/ls.cpp  -o bin/ls
+g++  src/main.cpp  -o bin/og_rshell
+rgosh001@well.cs.ucr.edu$ bin/rshell
+rgosh001@well.cs.ucr.edu$ # pwd #inc side rsh   anot    an rshell, inside      inst ide an rshell
+/home/csmajs/rgosh001/rshell
+rgosh001@well.cs.ucr.edu$ ls  cat
+rgosh001@well.cs.ucr.edu$ # cat #gin  oing to call cat and st  test is y   my ^C function works to return a to rshell command line
+rgosh001@well.cs.ucr.edu$ cat
+hi
+hi
+curer  ently in cat f e function call
+curently in cat function call
+will exit this by calling ^c
+will exit this by calling ^c
+rgosh001@well.cs.ucr.edu$ pwd #c cout    gout out of           t ut of       of cat
+/home/csmajs/rgosh001/rshell
+rgosh001@well.cs.ucr.edu$ ex  echo $PATH #i w   I am  am able to call   l any command that bash regularly has withmy   my PATH variable in t my prob gram, tha     i     
+$PATH
+rgosh001@well.cs.ucr.edu$ clear
+[H[2Jrgosh001@well.cs.ucr.edu$ clear #       c cdt #error message for unknown calls are only displayed AFTER a it go oes through all the bp  PATH drect    irectory ies  :    as shown below in the error message:
+Command Failed: No such file or directory
+rgosh001@well.cs.ucr.edu$ 
+terminate called after throwing an instance of 'std::out_of_range'
+  what():  vector::_M_range_check
+rgosh001@well.cs.ucr.edu$ this c      echo "this concluded s my test script"
+"this concludes my test script"
+rgosh001@well.cs.ucr.edu$ exit
+rgosh001@well.cs.ucr.edu$ exit
+rgosh001@well.cs.ucr.edu$ exit
+rgosh001@well.cs.ucr.edu$ exit
+rgosh001@well.cs.ucr.edu$ exit
+rgosh001@well.cs.ucr.edu$ #i guess my exit doesn't want to work now LOL
+terminate called after throwing an instance of 'std::out_of_range'
+  what():  vector::_M_range_check
+rgosh001@well.cs.ucr.edu$ exit
+~/rshell
+rgosh001@well $ ei[Kxit
+exit
+
+Script done on Mon 25 Aug 2014 07:47:17 PM PDT
