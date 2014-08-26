@@ -3,7 +3,7 @@ Licensing Information: READ LICENSE
 Project source can be downloaded from https://github.com/rgosh001/rshell.git
 ----
 
-Author List
+Author & Contributor List
 -----------
 Mike Izbicki
 
