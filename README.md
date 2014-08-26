@@ -26,8 +26,8 @@ README.md
 ./src
 
 ./tests
-
-
+```
+```
 /src:
 
 main.cpp
@@ -37,8 +37,8 @@ ls.cpp
 hw3.cpp
 
 path.cpp
-
-
+```
+```
 ./tests:
 
 exec.script
