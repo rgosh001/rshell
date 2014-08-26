@@ -61,9 +61,15 @@ For full feature, please add current path to the rshell directory to your $PATH.
 
 Once you have cloned the directory to your local machine, follow the directions below:
 --------------------------------------------------------------------------------------
-1. `cd` into `bin`
+1. `cd` into `rshell` directory
 
-2. call `rshell`
+2. Call `make`
+
+3. `cd` into `bin`
+
+4. Call `rshell`
+
+5. Can do steps 3 & 4 by calling `bin/rshell`
 
 RShell will now open up instead of BASH and you can execute almost all to nothing commands as included in the regular terminal.
 
