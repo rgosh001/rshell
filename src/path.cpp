@@ -94,7 +94,7 @@ char* getPath(vector<string> commands)
 int main()
 {
    string usrin = "";
-   int exitcount = 0;
+   int exitcount = 100;
    while(usrin != "exit")
    {
       ++exitcount;
