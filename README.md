@@ -52,13 +52,15 @@ path.script
 
 How to run file
 ---------------
-Depending on Operatiing System, OS X vs Unix, program is compiled with the <wait.h> library. OS Xwill not compile but will need the removal of the <wait.h> library call. 
+Depending on Operatiing System, OS X vs Unix, program is compiled with the `#include <wait.h>` library.
+
+OS X will not compile but will need the removal of the `#include <wait.h>` library call. 
 
 For full feature, please add current path to the rshell directory to your $PATH. This will enable you to use the ls features made in my personal ls shell.
 
 Once you have cloned the directory to your local machine, follow the directions below:
 --------------------------------------------------------------------------------------
-1. cd into `bin`
+1. `cd` into `bin`
 
 2. call `rshell`
 
@@ -84,5 +86,5 @@ Bugs
 ---
 1. `exit` commands works 75% of the time under normal use and testing
 
-2. ^C works but when calling it from rshell with nothing running, will produce an error pertaining to a vector out of range. (GDB debugging still in progress)
+2. `^C` works but when calling it from rshell with nothing running, will produce an error pertaining to a vector out of range. (GDB debugging still in progress)
 
