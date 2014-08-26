@@ -65,10 +65,11 @@ This program is developed to write a simple command shell called "RShell."
 - Have special built in command "exit"
 
 
-Bugs:
-	1. Input: "bin/ls -Ra" will cause a streamline of random numbers. It is similar to the representive on bash but off.
-	2. Formatting on bin/ls -l isn't formatted to the right correcty. Off by a few spaces.
-	3. Bug when trying to -R on a folder with more than 3 directories (in the works!)
-	4. Recursion still needs some fixing, found bugs with deep level ls -R commands
-	5. 
-   6.
+Bugs
+---
+1. Input: `bin/ls -Ra` will cause a streamline of random numbers. It is similar to the representive on bash but off.
+2. Formatting on `bin/ls -l` isn't formatted to the right correcty. Off by a few spaces.
+3. Bug when trying to use `-R` on a folder with more than 3 directories (in the works!)
+4. Recursion still needs some fixing, found bugs with deep level `ls -R` commands
+5. Can't call `ls` if you are within the `bin` directory
+6.
