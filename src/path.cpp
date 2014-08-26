@@ -11,16 +11,33 @@
 #include <stdio.h>
 #include <vector>
 #include <errno.h>
+#include <signal.h>
 //#include <wait.h>
 
 using namespace std;
 
+int handler = 0;
+int stop = 0;
+
+void sig_handler(int signum)
+{
+   ++handler;
+   flush(cout);
+}
+
+void sig_stop(int signum)
+{
+   ++stop;
+   cout << "S" << endl;
+   
+   pid_t pid = getpid();
+   kill(pid, SIGSTOP);
+}
+
 char* getPath(vector<string> commands)
 {
-   char *cwd;
-   cwd = new char(128);
-   char *returncwd;
-   returncwd = new char(128);
+   char *cwd = new char[1024];
+   char *returncwd = new char[1024];
    int lastslash = 0;
 
    if(getcwd(cwd, 1024) == 0)
@@ -29,7 +46,16 @@ char* getPath(vector<string> commands)
    }
    if(commands.size() == 1 && commands.at(0) == "cd")
    {
-      *returncwd = '~';
+      //path char array made into string for parsing reasons
+      returncwd = getenv("HOME");
+      delete [] cwd;
+      return returncwd;
+   }
+   else if(commands.size() == 2 && commands.at(0) == "cd" && commands.at(1) == ".")
+   {
+      //path char array made into string for parsing reasons
+      delete [] returncwd;
+      return cwd;
    }
    else if(commands.size() > 1 && commands.at(1) == "..")
    {
@@ -40,11 +66,13 @@ char* getPath(vector<string> commands)
             lastslash = i;
          }
       }
+      cout << cwd << endl;
 
-      for(int i = 0; cwd[i] <= lastslash; ++i)
+      for(int i = 0; i < lastslash; ++i)
       {
          returncwd[i] = cwd[i];
       }
+      delete [] cwd;
       return returncwd;
    }
    else if(commands.size() > 1)
@@ -56,6 +84,7 @@ char* getPath(vector<string> commands)
 
       strcpy(returncwd, cwd);
       strcpy(returncwd, temp);
+      delete [] cwd;
       return returncwd;
    }
 
@@ -65,9 +94,12 @@ char* getPath(vector<string> commands)
 int main()
 {
    string usrin = "";
-   vector<int> pids;
+   int exitcount = 0;
    while(usrin != "exit")
    {
+      ++exitcount;
+      signal(SIGINT, sig_handler);
+      signal(SIGTSTP, sig_stop);
       //gets local machine name
       char hostname[128];
       gethostname(hostname, sizeof hostname);
@@ -106,7 +138,18 @@ int main()
       
       if(usrin == "exit")
       {
-         exit(0);
+         if(exitcount == 0)
+         {
+            exit(0);
+         }
+         else
+         {
+            while(exitcount != 0)
+            {
+               exit(0);
+               --exitcount;
+            }
+         }
       }
 
       //bool for usrin check for comments (#) and for background process (&)
@@ -150,58 +193,58 @@ int main()
          commands.push_back(val);
       }
 
-      if(commands.at(0) == "cd")
-      {
-         char *path = getPath(commands);
-         cout << path << endl;
-      }
 
       int child = fork();
 		if (child == 0)
 		{
-         //allocating memory for the array
-         int size = commands.size();
-         char** cp;
-         cp = new char*[size * sizeof(char*)];
-         int pathindex = 0;
-         while(paths.size() != 0)
+         if(commands.at(0) == "cd")
          {
-            //copies command and argument(s) to array for EXECV()
-            for (int i = 0; i < size; ++i)
+            char *path = new char[1024];
+            path = getPath(commands);
+            cout << path << endl;
+            if(chdir(path) == -1)
             {
-               string str = commands.at(i);
-               if (i == 0)
+               perror("cd failed");
+            }
+         }
+         else
+         {
+            //allocating memory for the array
+            int size = commands.size();
+            char** cp;
+            cp = new char*[size * sizeof(char*)];
+            int pathindex = 0;
+            while(paths.size() != 0)
+            {
+               //copies command and argument(s) to array for EXECV()
+               for (int i = 0; i < size; ++i)
                {
-                  string str1 = paths.at(0);
-                  str = str1.append(str);
+                  string str = commands.at(i);
+                  if (i == 0)
+                  {
+                     string str1 = paths.at(0);
+                     str = str1.append(str);
+                  }
+                  cp[i] = new char[str.length() + 1];
+                  strcpy(cp[i], str.c_str());
                }
-               cp[i] = new char[str.length() + 1];
-               strcpy(cp[i], str.c_str());
-            }
-            cp[size] = new char[8];
-            cp[size] = NULL;
+               cp[size] = new char[8];
+               cp[size] = NULL;
 
-            //checks for array values
-            /*for (int i = 0; i < size; ++i)
-            {
-               cout << "Array at " << i << ": " << cp[i] << endl;
-            }*/
-
-            //child process
-            if(usrin == "cd")
-            {
-
-            }
-            if (execv(cp[0], cp) == -1)
-            {
-               //perror("EXECLV FAILED: ");
+               //checks for array values
                /*for (int i = 0; i < size; ++i)
                {
-                  delete[] cp[i];
+                  cout << "Array at " << i << ": " << cp[i] << endl;
+               }*/
+
+               if (execv(cp[0], cp) == -1)
+               {
+                  //ONLY want to call this is it fails ALL PATHS given 
+                  if(paths.size() == 1)
+                     perror("Command Failed");
                }
-               delete [] cp;*/
+               paths.erase(paths.begin());
             }
-            paths.erase(paths.begin());
          }
 		}
 		else
