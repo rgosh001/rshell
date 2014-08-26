@@ -12,7 +12,7 @@
 #include <vector>
 #include <errno.h>
 #include <signal.h>
-#include <wait.h>
+//#include <wait.h>
 
 using namespace std;
 
@@ -196,7 +196,19 @@ int main()
       int child = fork();
 		if (child == 0)
 		{
-         if(commands.at(0) == "cd")
+         if(commands.at(0) == "exit")
+         {
+            while(exitcount != 0)
+            {
+               exit(0);
+               --exitcount;
+            }
+         }
+         else if(commands.size() == 0)
+         {
+            continue;
+         }
+         else if(commands.at(0) == "cd")
          {
             char *path = new char[1024];
             path = getPath(commands);
