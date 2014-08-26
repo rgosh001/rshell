@@ -12,7 +12,7 @@
 #include <vector>
 #include <errno.h>
 #include <signal.h>
-//#include <wait.h>
+#include <wait.h>
 
 using namespace std;
 
