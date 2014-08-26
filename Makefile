@@ -4,7 +4,7 @@ CFLAS = -Wall -Werror -ansi -pedantic
 all: rshell ls
 
 rshell:
-	mkdir bin
+	([ ! -d bin ] && mkdir bin) || [ -d bin ]
 	g++ $(CFLAGS) src/main.cpp  -o bin/rshell
 
 ls:
