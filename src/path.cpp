@@ -66,7 +66,6 @@ char* getPath(vector<string> commands)
             lastslash = i;
          }
       }
-      cout << cwd << endl;
 
       for(int i = 0; i < lastslash; ++i)
       {
