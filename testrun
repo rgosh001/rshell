@@ -1,0 +1,9 @@
+Script started on Wed Aug 27 13:41:38 2014
+[?1034hbash-3.2$ ls
+LICENSE   Makefile  README.md [34mbin[39;49m[0m       [34msrc[39;49m[0m       testrun   [34mtests[39;49m[0m
+bash-3.2$ echo "hello world"
+hello world
+bash-3.2$ exit
+exit
+
+Script done on Wed Aug 27 13:42:10 2014

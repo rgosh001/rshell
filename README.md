@@ -1,3 +1,6 @@
+RSHELL
+==========
+
 Licensing Information: READ LICENSE
 ---
 Project source can be downloaded from https://github.com/rgosh001/rshell.git
